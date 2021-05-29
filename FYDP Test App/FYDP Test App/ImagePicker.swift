@@ -4,7 +4,9 @@
 //
 //  Created by Waleed Ahmed on 2021-05-28.
 //
-// Tutorial followed to make this work: https://www.hackingwithswift.com/books/ios-swiftui/using-coordinators-to-manage-swiftui-view-controllers
+// Tutorials followed to figure out how to do this:
+// * https://www.hackingwithswift.com/books/ios-swiftui/using-coordinators-to-manage-swiftui-view-controllers
+// * https://www.youtube.com/watch?v=GRX5Dha_Clw
 
 import SwiftUI
 
