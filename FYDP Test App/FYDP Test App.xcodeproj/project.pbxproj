@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,8 @@
 		7E1CFEF7266197410039E5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1CFEF6266197410039E5AC /* Assets.xcassets */; };
 		7E1CFEFA266197410039E5AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1CFEF9266197410039E5AC /* Preview Assets.xcassets */; };
 		7E1CFF022661A3C40039E5AC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1CFF012661A3C40039E5AC /* ImagePicker.swift */; };
+		7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */ = {isa = PBXBuildFile; productRef = 7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */; };
+		7EB1DC52267F0208009DF3ED /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7EB1DC51267F0208009DF3ED /* tessdata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,7 @@
 		7E1CFEF9266197410039E5AC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7E1CFEFB266197410039E5AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E1CFF012661A3C40039E5AC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		7EB1DC51267F0208009DF3ED /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +58,7 @@
 		7E1CFEF1266197400039E5AC /* FYDP Test App */ = {
 			isa = PBXGroup;
 			children = (
+				7EB1DC51267F0208009DF3ED /* tessdata */,
 				7E1CFEF2266197400039E5AC /* FYDP_Test_AppApp.swift */,
 				7E1CFEF4266197400039E5AC /* ContentView.swift */,
 				7E1CFEF6266197410039E5AC /* Assets.xcassets */,
@@ -88,6 +93,9 @@
 			dependencies = (
 			);
 			name = "FYDP Test App";
+			packageProductDependencies = (
+				7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */,
+			);
 			productName = "FYDP Test App";
 			productReference = 7E1CFEEF266197400039E5AC /* FYDP Test App.app */;
 			productType = "com.apple.product-type.application";
@@ -115,6 +123,9 @@
 				Base,
 			);
 			mainGroup = 7E1CFEE6266197400039E5AC;
+			packageReferences = (
+				7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */,
+			);
 			productRefGroup = 7E1CFEF0266197400039E5AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,6 +142,7 @@
 			files = (
 				7E1CFEFA266197410039E5AC /* Preview Assets.xcassets in Resources */,
 				7E1CFEF7266197410039E5AC /* Assets.xcassets in Resources */,
+				7EB1DC52267F0208009DF3ED /* tessdata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +344,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyTesseract/SwiftyTesseract";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */;
+			productName = SwiftyTesseract;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7E1CFEE7266197400039E5AC /* Project object */;
 }

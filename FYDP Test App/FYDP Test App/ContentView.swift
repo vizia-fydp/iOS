@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftyTesseract
 
 struct ContentView: View {
     @State private var showImagePicker = false
@@ -33,10 +34,20 @@ struct ContentView: View {
             ImagePicker(image: $inputImage)
         }
     }
-    
+
     private func loadImage() {
         guard let inputImage = inputImage else { return }
         image = Image(uiImage: inputImage)
+
+        // perform OCR using Tesseract
+        let tesseract = Tesseract(language: .english)
+        let result = tesseract.performOCR(on: inputImage)
+        switch result {
+        case .success(let string):
+            print(string)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
 }
 
