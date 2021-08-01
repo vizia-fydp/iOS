@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 import SwiftyTesseract
 
 //MARK: - ContentView
@@ -49,8 +50,28 @@ struct ContentView: View {
 
         let result = tesseract.performOCR(on: inputImage)
         switch result {
-        case .success(let string):
-            print(string)
+        case .success(let result):
+            print(result)
+
+            // Text to Speech using AVFoundation
+            // https://developer.apple.com/documentation/avfoundation/speech_synthesis
+            let utterance = AVSpeechUtterance(string: result)
+
+            // Configure the utterance.
+            utterance.rate = 0.57
+            utterance.pitchMultiplier = 0.8
+            utterance.postUtteranceDelay = 0.2
+            utterance.volume = 0.8
+
+            // Retrieve the British English voice.
+            let voice = AVSpeechSynthesisVoice(language: "en-GB")
+            utterance.voice = voice
+
+            // Create a speech synthesizer.
+            let synthesizer = AVSpeechSynthesizer()
+
+            // Tell the synthesizer to speak the utterance.
+            synthesizer.speak(utterance)
         case .failure(let error):
             print(error.localizedDescription)
         }
