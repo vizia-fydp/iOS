@@ -24,6 +24,10 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("FYDP")
         }
+        .onAppear {
+            // Configure audio to play in background
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        }
     }
 
     private var imagePick: some View {
