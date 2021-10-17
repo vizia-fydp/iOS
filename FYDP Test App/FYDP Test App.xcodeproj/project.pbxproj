@@ -12,6 +12,7 @@
 		7E1CFEF7266197410039E5AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1CFEF6266197410039E5AC /* Assets.xcassets */; };
 		7E1CFEFA266197410039E5AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1CFEF9266197410039E5AC /* Preview Assets.xcassets */; };
 		7E1CFF022661A3C40039E5AC /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1CFF012661A3C40039E5AC /* ImagePicker.swift */; };
+		7E71E2DC271BF6AF00802E23 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7E71E2DB271BF6AF00802E23 /* SocketIO */; };
 		7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */ = {isa = PBXBuildFile; productRef = 7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */; };
 		7EB1DC52267F0208009DF3ED /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7EB1DC51267F0208009DF3ED /* tessdata */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */,
+				7E71E2DC271BF6AF00802E23 /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +97,7 @@
 			name = "FYDP Test App";
 			packageProductDependencies = (
 				7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */,
+				7E71E2DB271BF6AF00802E23 /* SocketIO */,
 			);
 			productName = "FYDP Test App";
 			productReference = 7E1CFEEF266197400039E5AC /* FYDP Test App.app */;
@@ -125,6 +128,7 @@
 			mainGroup = 7E1CFEE6266197400039E5AC;
 			packageReferences = (
 				7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */,
+				7E71E2DA271BF6AF00802E23 /* XCRemoteSwiftPackageReference "socket" */,
 			);
 			productRefGroup = 7E1CFEF0266197400039E5AC /* Products */;
 			projectDirPath = "";
@@ -346,6 +350,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7E71E2DA271BF6AF00802E23 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 16.0.1;
+			};
+		};
 		7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyTesseract/SwiftyTesseract";
@@ -357,6 +369,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7E71E2DB271BF6AF00802E23 /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E71E2DA271BF6AF00802E23 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
 		7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */;

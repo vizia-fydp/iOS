@@ -8,12 +8,14 @@
 import SwiftUI
 import AVFoundation
 import SwiftyTesseract
+import SocketIO
 
 //MARK: - ContentView
 struct ContentView: View {
     @State private var showImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
+    private var socketManager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000")!, config: [.log(true), .compress])
 
     var body: some View {
         NavigationView {
@@ -27,6 +29,20 @@ struct ContentView: View {
         .onAppear {
             // Configure audio to play in background
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+
+            // Socket IO setup
+            let socket = socketManager.defaultSocket
+
+            socket.on(clientEvent: .connect) {data, ack in
+                print("socket connected")
+            }
+
+            socket.on("test") {data, ack in
+                guard let msg = data[0] as? String else { return }
+                print(msg)
+            }
+
+            socket.connect()
         }
     }
 
