@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var showImagePicker = false
     @State private var image: Image?
     @State private var inputImage: UIImage?
+    private var speech = Speech()
     private var socketManager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000")!, config: [.log(true), .compress])
 
     var body: some View {
@@ -40,6 +41,7 @@ struct ContentView: View {
             socket.on("test") {data, ack in
                 guard let msg = data[0] as? String else { return }
                 print(msg)
+                speech.speak(text: msg)
             }
 
             socket.connect()
@@ -72,26 +74,7 @@ struct ContentView: View {
         switch result {
         case .success(let result):
             print(result)
-
-            // Text to Speech using AVFoundation
-            // https://developer.apple.com/documentation/avfoundation/speech_synthesis
-            let utterance = AVSpeechUtterance(string: result)
-
-            // Configure the utterance.
-            utterance.rate = 0.57
-            utterance.pitchMultiplier = 0.8
-            utterance.postUtteranceDelay = 0.2
-            utterance.volume = 0.8
-
-            // Retrieve the British English voice.
-            let voice = AVSpeechSynthesisVoice(language: "en-GB")
-            utterance.voice = voice
-
-            // Create a speech synthesizer.
-            let synthesizer = AVSpeechSynthesizer()
-
-            // Tell the synthesizer to speak the utterance.
-            synthesizer.speak(utterance)
+            speech.speak(text: result)
         case .failure(let error):
             print(error.localizedDescription)
         }
