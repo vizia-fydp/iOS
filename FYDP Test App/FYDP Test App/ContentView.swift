@@ -16,7 +16,8 @@ struct ContentView: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     private var speech = Speech()
-    private var socketManager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000")!, config: [.log(true), .compress])
+//    private var socketManager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000")!, config: [.log(true), .compress])
+    private var socketManager = SocketManager(socketURL: URL(string: "https://33b0-2601-646-c200-cb40-c119-df75-41e7-9bac.ngrok.io")!, config: [.log(true), .compress])
 
     var body: some View {
         NavigationView {
