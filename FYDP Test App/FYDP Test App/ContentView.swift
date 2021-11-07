@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 import SwiftyTesseract
 import SocketIO
+import Alamofire
 
 //MARK: - ContentView
 struct ContentView: View {
@@ -16,8 +17,10 @@ struct ContentView: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     private var speech = Speech()
+    private var serverUrl = "http://127.0.0.1:5000"
+//    private var serverUrl = "https://84c4-2601-646-c200-cb40-4100-3c65-11ac-c2cb.ngrok.io"
 //    private var socketManager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000")!, config: [.log(true), .compress])
-    private var socketManager = SocketManager(socketURL: URL(string: "https://33b0-2601-646-c200-cb40-c119-df75-41e7-9bac.ngrok.io")!, config: [.log(true), .compress])
+//    private var socketManager = SocketManager(socketURL: URL(string: "https://33b0-2601-646-c200-cb40-c119-df75-41e7-9bac.ngrok.io")!, config: [.log(true), .compress])
 
     var body: some View {
         NavigationView {
@@ -33,19 +36,19 @@ struct ContentView: View {
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
 
             // Socket IO setup
-            let socket = socketManager.defaultSocket
-
-            socket.on(clientEvent: .connect) {data, ack in
-                print("socket connected")
-            }
-
-            socket.on("test") {data, ack in
-                guard let msg = data[0] as? String else { return }
-                print(msg)
-                speech.speak(text: msg)
-            }
-
-            socket.connect()
+//            let socket = socketManager.defaultSocket
+//
+//            socket.on(clientEvent: .connect) {data, ack in
+//                print("socket connected")
+//            }
+//
+//            socket.on("test") {data, ack in
+//                guard let msg = data[0] as? String else { return }
+//                print(msg)
+//                speech.speak(text: msg)
+//            }
+//
+//            socket.connect()
         }
     }
 
@@ -63,21 +66,43 @@ struct ContentView: View {
     private func loadImage() {
 //        guard let inputImage = inputImage else { return }
 //        guard let inputImage = inputImage?.scaledImage(1000) else { return }
-        guard let inputImage = inputImage?.scaledImage(1000)?.grayscale() else { return }
+        guard let scaledImage = inputImage?.scaledImage(1000) else { return }
+        guard let grayscaleImage = scaledImage.grayscale() else { return }
 //        guard let inputImage = inputImage?.scaledImage(1000)?.grayscale()?.otsuThreshold() else { return }
 
-        image = Image(uiImage: inputImage)
+        image = Image(uiImage: scaledImage)
 
         // perform OCR using Tesseract
-        let tesseract = Tesseract(language: .english)
+//        let tesseract = Tesseract(language: .english)
+//
+//        let result = tesseract.performOCR(on: inputImage)
+//        switch result {
+//        case .success(let result):
+//            print(result)
+//            speech.speak(text: result)
+//        case .failure(let error):
+//            print(error.localizedDescription)
+//        }
 
-        let result = tesseract.performOCR(on: inputImage)
-        switch result {
-        case .success(let result):
-            print(result)
-            speech.speak(text: result)
-        case .failure(let error):
-            print(error.localizedDescription)
+        // Color Detection
+        let headers: HTTPHeaders = [.contentType("image/jpeg")]
+        guard let imageData = scaledImage.jpegData(compressionQuality: 0.50) else { return }
+        AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseJSON { response in
+            switch response.result {
+                case .success:
+                    print(response.result)
+
+                    if let data = response.data {
+                        do {
+                            let decoded = try JSONDecoder().decode(ColorDetectionResponse.self, from: data)
+                            speech.speak(text: decoded.color_name)
+                        } catch {
+                            print("Error decoding JSON response for Color Detection")
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+            }
         }
     }
 }
