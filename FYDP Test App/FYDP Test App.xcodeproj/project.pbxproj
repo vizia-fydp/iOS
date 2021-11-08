@@ -16,6 +16,8 @@
 		7E71E2DC271BF6AF00802E23 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7E71E2DB271BF6AF00802E23 /* SocketIO */; };
 		7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */ = {isa = PBXBuildFile; productRef = 7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */; };
 		7EB1DC52267F0208009DF3ED /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7EB1DC51267F0208009DF3ED /* tessdata */; };
+		7EB773AF2733B69B00CEDBEF /* JsonCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB773AE2733B69B00CEDBEF /* JsonCodable.swift */; };
+		7EB773B22733B8D700CEDBEF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7EB773B12733B8D700CEDBEF /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,7 @@
 		7E1CFF012661A3C40039E5AC /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		7E1F041C271D13CD00602589 /* Speech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speech.swift; sourceTree = "<group>"; };
 		7EB1DC51267F0208009DF3ED /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		7EB773AE2733B69B00CEDBEF /* JsonCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB773B22733B8D700CEDBEF /* Alamofire in Frameworks */,
 				7EB1DC4B267EF382009DF3ED /* SwiftyTesseract in Frameworks */,
 				7E71E2DC271BF6AF00802E23 /* SocketIO in Frameworks */,
 			);
@@ -70,6 +74,7 @@
 				7E1CFEF8266197410039E5AC /* Preview Content */,
 				7E1CFF012661A3C40039E5AC /* ImagePicker.swift */,
 				7E1F041C271D13CD00602589 /* Speech.swift */,
+				7EB773AE2733B69B00CEDBEF /* JsonCodable.swift */,
 			);
 			path = "FYDP Test App";
 			sourceTree = "<group>";
@@ -101,6 +106,7 @@
 			packageProductDependencies = (
 				7EB1DC4A267EF382009DF3ED /* SwiftyTesseract */,
 				7E71E2DB271BF6AF00802E23 /* SocketIO */,
+				7EB773B12733B8D700CEDBEF /* Alamofire */,
 			);
 			productName = "FYDP Test App";
 			productReference = 7E1CFEEF266197400039E5AC /* FYDP Test App.app */;
@@ -132,6 +138,7 @@
 			packageReferences = (
 				7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */,
 				7E71E2DA271BF6AF00802E23 /* XCRemoteSwiftPackageReference "socket" */,
+				7EB773B02733B8D700CEDBEF /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 7E1CFEF0266197400039E5AC /* Products */;
 			projectDirPath = "";
@@ -164,6 +171,7 @@
 				7E1CFEF5266197400039E5AC /* ContentView.swift in Sources */,
 				7E1CFEF3266197400039E5AC /* FYDP_Test_AppApp.swift in Sources */,
 				7E1F041D271D13CD00602589 /* Speech.swift in Sources */,
+				7EB773AF2733B69B00CEDBEF /* JsonCodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +378,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		7EB773B02733B8D700CEDBEF /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -382,6 +398,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7EB1DC49267EF382009DF3ED /* XCRemoteSwiftPackageReference "SwiftyTesseract" */;
 			productName = SwiftyTesseract;
+		};
+		7EB773B12733B8D700CEDBEF /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7EB773B02733B8D700CEDBEF /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
