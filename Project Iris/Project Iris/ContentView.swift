@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+extension View {
+    func cardStyle() -> some View {
+        modifier(CardModifier())
+    }
+}
+
+struct CardModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(Color("appBlack"))
+            .font(Font.custom("Roboto-Black", size: 48))
+            .clipShape(RoundedRectangle(cornerRadius: 5.0))
+            .padding(.horizontal, 30)
+            .padding(.vertical, 15)
+            .multilineTextAlignment(.center)
+    }
+}
+
 struct PrimaryButton: ButtonStyle {
     @Binding var currentButton: Int
     var totalButtons: Int
@@ -26,6 +44,7 @@ struct PrimaryButton: ButtonStyle {
                             }
                         } label: {
                             Image(systemName: "chevron.left")
+                                .imageScale(.large)
                         }
                         .buttonStyle(ChevronButton())
                         Button {
@@ -36,17 +55,13 @@ struct PrimaryButton: ButtonStyle {
                             }
                         } label: {
                             Image(systemName: "chevron.right")
+                                .imageScale(.large)
                         }
                         .buttonStyle(ChevronButton())
                     }
                 }
             )
-            .foregroundColor(.black)
-            .font(Font.custom("Roboto-Black", size: 48))
-            .clipShape(RoundedRectangle(cornerRadius: 5.0))
-            .padding(.horizontal, 30)
-            .padding(.vertical, 15)
-            .multilineTextAlignment(.center)
+            .cardStyle()
     }
 }
 
@@ -58,14 +73,13 @@ struct PageButton: ButtonStyle {
             .foregroundColor(.black)
             .font(Font.custom("Roboto-Black", size: 36))
             .clipShape(RoundedRectangle(cornerRadius: 5.0))
-            .padding(.bottom, 15)
     }
 }
 
 struct ChevronButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 20)
             .padding(.vertical, 30)
     }
 }
@@ -96,16 +110,28 @@ struct AppThemeContainer <Content : View> : View {
                         .edgesIgnoringSafeArea(.top)
                     Button(action: {
                         home ?
-                        print("options") :
+                        nil :
                         presentationMode.wrappedValue.dismiss()
                     }) {
-                        Image(systemName: home ? "line.3.horizontal" : "chevron.left")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .imageScale(.small)
-                            .foregroundColor(Color("appBlack"))
-                            .frame(width: 20, height: 20)
-                            .position(x: 45, y: 35)
+                        if (home) {
+                            NavigationLink(destination: SettingsView()) {
+                                Image(systemName: "gearshape.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .imageScale(.large)
+                                    .foregroundColor(Color("appBlack"))
+                                    .frame(width: 40, height: 40)
+                                    .position(x: 40, y: 35)
+                            }
+                        } else {
+                            Image(systemName: "chevron.left")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .imageScale(.small)
+                                .foregroundColor(Color("appBlack"))
+                                .frame(width: 20, height: 20)
+                                .position(x: 35, y: 35)
+                        }
                     }
                     Text(pageTitle)
                         .foregroundColor(Color("appBlack"))
@@ -121,6 +147,25 @@ struct AppThemeContainer <Content : View> : View {
             }
         }
         .navigationBarHidden(true)
+    }
+}
+
+struct Card <Content : View> : View {
+    var content : Content
+    var height: Int
+    
+    init(height: Int, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.height = height
+    }
+    
+    var body: some View {
+        ZStack {
+            Color("appWhite")
+            content
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: CGFloat(self.height))
+        .cardStyle()
     }
 }
 
@@ -147,9 +192,58 @@ struct HomeView: View {
 }
 
 struct PlaybackView: View {
+    private var play: Bool = false
+    
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
-            Text("hiiii lol")
+            VStack {
+                Card(height: 200) {
+                    Text("0.5x 1.0x 1.5x")
+                }
+                
+                Card(height: 200) {
+                    Image(systemName: play ? "play.fill" : "pause.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        .padding(.vertical, 60)
+                }
+                
+                Card(height: 200) {
+                    Image(systemName: "stop.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        .padding(.vertical, 60)
+                }
+                
+                Spacer()
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        }
+    }
+}
+
+struct SettingsView: View {
+    var body: some View {
+        AppThemeContainer(pageTitle: "settings", home: false) {
+            VStack {
+                Card(height: 100) {
+                    Text("option")
+                }
+                Card(height: 100) {
+                    Text("option")
+                }
+                Card(height: 100) {
+                    Text("option")
+                }
+                Card(height: 100) {
+                    Text("option")
+                }
+                
+                Spacer()
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         }
     }
 }
@@ -177,6 +271,8 @@ struct ButtonCarouselView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .tabViewStyle(PageTabViewStyle())
+        .animation(.easeInOut)
+        .transition(.slide)
     }
 }
 
