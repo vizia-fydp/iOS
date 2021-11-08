@@ -281,6 +281,7 @@ struct ContentView: View {
         NavigationView {
             HomeView()
         }
+        .preferredColorScheme(.light)
     }
 }
 
