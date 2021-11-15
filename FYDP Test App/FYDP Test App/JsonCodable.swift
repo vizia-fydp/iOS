@@ -11,6 +11,6 @@
 import Foundation
 
 struct ColorDetectionResponse : Codable {
-    let color_name : String
-    let rgb : [Float]
+    let colors : String
+    let rgb : [[Float]]
 }
