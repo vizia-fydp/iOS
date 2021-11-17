@@ -95,7 +95,7 @@ struct ContentView: View {
                     if let data = response.data {
                         do {
                             let decoded = try JSONDecoder().decode(ColorDetectionResponse.self, from: data)
-                            speech.speak(text: decoded.color_name)
+                            speech.speak(text: decoded.colors)
                         } catch {
                             print("Error decoding JSON response for Color Detection")
                         }
