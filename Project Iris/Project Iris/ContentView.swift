@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
+}
+
 extension View {
     func cardStyle() -> some View {
         modifier(CardModifier())
@@ -24,6 +30,26 @@ struct CardModifier: ViewModifier {
             .multilineTextAlignment(.center)
     }
 }
+
+struct OnPressButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? Color("accentGrey") : Color("appBlack"))
+    }
+}
+
+// TODO: you were making card buttons for the options/playback screens
+struct CardButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(Font.custom("Roboto-Black", size: 48))
+            .clipShape(RoundedRectangle(cornerRadius: 5.0))
+            .padding(.horizontal, 30)
+            .padding(.vertical, 15)
+            .multilineTextAlignment(.center)
+    }
+}
+
 
 struct PrimaryButton: ButtonStyle {
     @Binding var currentButton: Int
@@ -61,6 +87,7 @@ struct PrimaryButton: ButtonStyle {
                     }
                 }
             )
+            .buttonStyle(OnPressButtonStyle())
             .cardStyle()
     }
 }
@@ -70,9 +97,9 @@ struct PageButton: ButtonStyle {
         configuration.label
             .frame(maxWidth: 90, maxHeight: 55)
             .background(Color("appWhite"))
-            .foregroundColor(.black)
             .font(Font.custom("Roboto-Black", size: 36))
             .clipShape(RoundedRectangle(cornerRadius: 5.0))
+            .buttonStyle(OnPressButtonStyle())
     }
 }
 
@@ -81,6 +108,7 @@ struct ChevronButton: ButtonStyle {
         configuration.label
             .padding(.horizontal, 20)
             .padding(.vertical, 30)
+            .buttonStyle(OnPressButtonStyle())
     }
 }
 
@@ -119,7 +147,6 @@ struct AppThemeContainer <Content : View> : View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .imageScale(.large)
-                                    .foregroundColor(Color("appBlack"))
                                     .frame(width: 40, height: 40)
                                     .position(x: 40, y: 35)
                             }
@@ -128,11 +155,12 @@ struct AppThemeContainer <Content : View> : View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .imageScale(.small)
-                                .foregroundColor(Color("appBlack"))
                                 .frame(width: 20, height: 20)
                                 .position(x: 35, y: 35)
                         }
                     }
+                    .buttonStyle(OnPressButtonStyle())
+                    
                     Text(pageTitle)
                         .foregroundColor(Color("appBlack"))
                         .font(Font.custom("Roboto-Black", size: 36))
@@ -147,6 +175,47 @@ struct AppThemeContainer <Content : View> : View {
             }
         }
         .navigationBarHidden(true)
+    }
+}
+
+// A modifier that animates a font through various sizes.
+struct AnimatableCustomFontModifier: AnimatableModifier {
+    var name: String
+    var size: CGFloat
+
+    var animatableData: CGFloat {
+        get { size }
+        set { size = newValue }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .font(.custom(name, size: size))
+    }
+}
+
+extension View {
+    func animatableFont(name: String, size: CGFloat) -> some View {
+        self.modifier(AnimatableCustomFontModifier(name: name, size: size))
+    }
+}
+
+struct CardButton <Content : View> : View {
+    var content : Content
+    var height: Int
+    
+    init(height: Int, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.height = height
+    }
+    
+    var body: some View {
+        ZStack {
+            Color("appWhite")
+            content
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: CGFloat(self.height))
+        .cardStyle()
     }
 }
 
@@ -193,12 +262,32 @@ struct HomeView: View {
 
 struct PlaybackView: View {
     private var play: Bool = false
+    @State private var speed: Int = 1
+    private var speedOptions: [String] = ["x0.5", "x1", "x1.5"]
+    @State private var fontSizes: [CGFloat] = [32, 48, 32]
     
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
             VStack {
                 Card(height: 200) {
-                    Text("0.5x 1.0x 1.5x")
+                    HStack() {
+                        ForEach(0..<speedOptions.count, id: \.self) { i in
+                            Text(speedOptions[i])
+                                .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
+                                .padding(.horizontal, 10)
+                                .animatableFont(name: "Roboto-Black", size: fontSizes[i])
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
+                                        speed = i
+                                        for j in 0..<fontSizes.count {
+                                            fontSizes[j] = j == i ? 48 : 32
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .padding(.horizontal, 20)
                 }
                 
                 Card(height: 200) {
@@ -225,20 +314,15 @@ struct PlaybackView: View {
 }
 
 struct SettingsView: View {
+    private var options: [String] = ["general", "playback", "font", "colour"]
+    
     var body: some View {
         AppThemeContainer(pageTitle: "settings", home: false) {
             VStack {
-                Card(height: 100) {
-                    Text("option")
-                }
-                Card(height: 100) {
-                    Text("option")
-                }
-                Card(height: 100) {
-                    Text("option")
-                }
-                Card(height: 100) {
-                    Text("option")
+                ForEach(0..<options.count, id: \.self) { i in
+                    Card(height: 100) {
+                        Text(options[i])
+                    }
                 }
                 
                 Spacer()
