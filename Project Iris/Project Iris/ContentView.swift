@@ -38,15 +38,26 @@ struct OnPressButtonStyle: ButtonStyle {
     }
 }
 
-// TODO: you were making card buttons for the options/playback screens
 struct CardButtonStyle: ButtonStyle {
+    var height: CGFloat
+    
+    init(height: CGFloat) {
+        self.height = height
+    }
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .background(
+                ZStack {
+                    Color("appWhite")
+                }
+            )
             .font(Font.custom("Roboto-Black", size: 48))
             .clipShape(RoundedRectangle(cornerRadius: 5.0))
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: self.height)
             .padding(.horizontal, 30)
             .padding(.vertical, 15)
-            .multilineTextAlignment(.center)
+            .foregroundColor(configuration.isPressed ? Color("accentGrey") : Color("appBlack"))
     }
 }
 
@@ -73,6 +84,7 @@ struct PrimaryButton: ButtonStyle {
                                 .imageScale(.large)
                         }
                         .buttonStyle(ChevronButton())
+                        
                         Button {
                             if ($currentButton.wrappedValue == self.totalButtons) {
                                 self.currentButton = 1
@@ -87,7 +99,6 @@ struct PrimaryButton: ButtonStyle {
                     }
                 }
             )
-            .buttonStyle(OnPressButtonStyle())
             .cardStyle()
     }
 }
@@ -178,7 +189,6 @@ struct AppThemeContainer <Content : View> : View {
     }
 }
 
-// A modifier that animates a font through various sizes.
 struct AnimatableCustomFontModifier: AnimatableModifier {
     var name: String
     var size: CGFloat
@@ -197,25 +207,6 @@ struct AnimatableCustomFontModifier: AnimatableModifier {
 extension View {
     func animatableFont(name: String, size: CGFloat) -> some View {
         self.modifier(AnimatableCustomFontModifier(name: name, size: size))
-    }
-}
-
-struct CardButton <Content : View> : View {
-    var content : Content
-    var height: Int
-    
-    init(height: Int, @ViewBuilder content: () -> Content) {
-        self.content = content()
-        self.height = height
-    }
-    
-    var body: some View {
-        ZStack {
-            Color("appWhite")
-            content
-        }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: CGFloat(self.height))
-        .cardStyle()
     }
 }
 
@@ -261,7 +252,7 @@ struct HomeView: View {
 }
 
 struct PlaybackView: View {
-    private var play: Bool = false
+    @State private var play: Bool = false
     @State private var speed: Int = 1
     private var speedOptions: [String] = ["x0.5", "x1", "x1.5"]
     @State private var fontSizes: [CGFloat] = [32, 48, 32]
@@ -290,21 +281,52 @@ struct PlaybackView: View {
                     .padding(.horizontal, 20)
                 }
                 
-                Card(height: 200) {
+                Button {
+                    play = !play
+                } label: {
                     Image(systemName: play ? "play.fill" : "pause.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 60)
+                        .padding(.vertical, 45)
                 }
+                .buttonStyle(CardButtonStyle(height: 200))
                 
-                Card(height: 200) {
+                Button {
+                    print("stop")
+                } label: {
                     Image(systemName: "stop.fill")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 60)
+                        .padding(.vertical, 45)
                 }
+                .buttonStyle(CardButtonStyle(height: 200))
+                
+                Spacer()
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+        }
+    }
+}
+
+struct ColourSettingsView: View {
+    var body: some View {
+        AppThemeContainer(pageTitle: "colour settings", home: false) {
+            VStack {
+                Button {
+                    play = !play
+                } label: {
+                    Text("Colour")
+                }
+                .buttonStyle(CardButtonStyle(height: 100))
+                
+                Button {
+                    play = !play
+                } label: {
+                    Text("Invert")
+                }
+                .buttonStyle(CardButtonStyle(height: 100))
                 
                 Spacer()
             }
@@ -314,16 +336,36 @@ struct PlaybackView: View {
 }
 
 struct SettingsView: View {
-    private var options: [String] = ["general", "playback", "font", "colour"]
-    
     var body: some View {
         AppThemeContainer(pageTitle: "settings", home: false) {
             VStack {
-                ForEach(0..<options.count, id: \.self) { i in
-                    Card(height: 100) {
-                        Text(options[i])
-                    }
+                NavigationLink(destination: PlaybackView()) {
+                    Text("general")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }
+                .buttonStyle(CardButtonStyle(height: 100))
+                .buttonStyle(OnPressButtonStyle())
+                
+                NavigationLink(destination: PlaybackView()) {
+                    Text("playback")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                }
+                .buttonStyle(CardButtonStyle(height: 100))
+                .buttonStyle(OnPressButtonStyle())
+                
+                NavigationLink(destination: PlaybackView()) {
+                    Text("font")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                }
+                .buttonStyle(CardButtonStyle(height: 100))
+                .buttonStyle(OnPressButtonStyle())
+                
+                NavigationLink(destination: PlaybackView()) {
+                    Text("colour")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                }
+                .buttonStyle(CardButtonStyle(height: 100))
+                .buttonStyle(OnPressButtonStyle())
                 
                 Spacer()
             }
@@ -350,6 +392,7 @@ struct ButtonCarouselView: View {
                     Text(self.buttons[i] ?? "default")
                 }
                 .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
+                .buttonStyle(OnPressButtonStyle())
                 .tag(i)
             }
         }
