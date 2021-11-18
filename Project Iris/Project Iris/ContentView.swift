@@ -269,27 +269,45 @@ struct PlaybackView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
             VStack {
-                Card(height: 200) {
-                    HStack() {
-                        ForEach(0..<speedOptions.count, id: \.self) { i in
-                            Text(speedOptions[i])
-                                .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
-                                .padding(.horizontal, 10)
-                                .animatableFont(name: "Roboto-Black", size: fontSizes[i])
-                                .onTapGesture {
-                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
-                                        speed = i
-                                        for j in 0..<fontSizes.count {
-                                            fontSizes[j] = j == i ? 48 : 32
+                if #available(iOS 15.0, *) {
+                    Card(height: 200) {
+                        HStack() {
+                            ForEach(0..<speedOptions.count, id: \.self) { i in
+                                Text(speedOptions[i])
+                                    .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
+                                    .padding(.horizontal, 10)
+                                    .animatableFont(name: "Roboto-Black", size: fontSizes[i])
+                                    .onTapGesture {
+                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
+                                            speed = i
+                                            for j in 0..<fontSizes.count {
+                                                fontSizes[j] = j == i ? 48 : 32
+                                            }
                                         }
                                     }
-                                }
+                            }
                         }
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        .padding(.horizontal, 20)
                     }
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                    .padding(.horizontal, 20)
+                    .accessibilityChildren {
+                        List {
+                            NavigationLink(destination: PlaybackView()) {
+                                Text("50%")
+                            }
+                            NavigationLink(destination: PlaybackView()) {
+                                Text("100%")
+                            }
+                            NavigationLink(destination: PlaybackView()) {
+                                Text("150%")
+                            }
+                        }
+                        .accessibilityLabel(Text("playback speeds; currently 100%"))
+                    }
+                    .accessibilitySortPriority(6)
+                } else {
+                    Text("loser")
                 }
-                .accessibilitySortPriority(6)
                 
                 Button {
                     play = !play
