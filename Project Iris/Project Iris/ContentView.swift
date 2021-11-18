@@ -141,27 +141,31 @@ struct AppThemeContainer <Content : View> : View {
         ZStack {
             Color("appWhite")
                 .edgesIgnoringSafeArea(.top)
+                .accessibilityHidden(true)
             Color("appBlack")
                 .edgesIgnoringSafeArea(.bottom)
+                .accessibilityHidden(true)
             VStack {
                 ZStack {
                     Color("appWhite")
                         .edgesIgnoringSafeArea(.top)
-                    Button(action: {
-                        home ?
-                        nil :
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        if (home) {
-                            NavigationLink(destination: SettingsView()) {
-                                Image(systemName: "gearshape.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .imageScale(.large)
-                                    .frame(width: 40, height: 40)
-                                    .position(x: 40, y: 35)
-                            }
-                        } else {
+                        .accessibilityHidden(true)
+                    if (home) {
+                        NavigationLink(destination: SettingsView()) {
+                            Image(systemName: "gearshape.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .imageScale(.large)
+                                .frame(width: 40, height: 40)
+                                .position(x: 40, y: 35)
+                        }
+                        .buttonStyle(OnPressButtonStyle())
+                        .accessibilityLabel(Text("settings"))
+                        .accessibilitySortPriority(1)
+                    } else {
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                        } label: {
                             Image(systemName: "chevron.left")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
@@ -169,12 +173,16 @@ struct AppThemeContainer <Content : View> : View {
                                 .frame(width: 20, height: 20)
                                 .position(x: 35, y: 35)
                         }
+                        .buttonStyle(OnPressButtonStyle())
+                        .accessibilityLabel(Text("back"))
+                        .accessibilitySortPriority(1)
                     }
-                    .buttonStyle(OnPressButtonStyle())
                     
                     Text(pageTitle)
                         .foregroundColor(Color("appBlack"))
                         .font(Font.custom("Roboto-Black", size: 36))
+                        .accessibility(sortPriority: 10)
+                        .accessibilityLabel(Text(pageTitle + " page"))
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 70)
                 .padding(.bottom, 15)
@@ -247,6 +255,7 @@ struct HomeView: View {
                 Text("\($currentButton.wrappedValue)/\(actionButtons.count)")
             }
             .buttonStyle(PageButton())
+            .accessibilityHidden(true)
         }
     }
 }
@@ -280,6 +289,7 @@ struct PlaybackView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .padding(.horizontal, 20)
                 }
+                .accessibilitySortPriority(6)
                 
                 Button {
                     play = !play
@@ -291,6 +301,7 @@ struct PlaybackView: View {
                         .padding(.vertical, 45)
                 }
                 .buttonStyle(CardButtonStyle(height: 200))
+                .accessibilitySortPriority(7)
                 
                 Button {
                     print("stop")
@@ -302,6 +313,7 @@ struct PlaybackView: View {
                         .padding(.vertical, 45)
                 }
                 .buttonStyle(CardButtonStyle(height: 200))
+                .accessibilitySortPriority(8)
                 
                 Spacer()
             }
@@ -345,6 +357,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(CardButtonStyle(height: 100))
                 .buttonStyle(OnPressButtonStyle())
+                .accessibilitySortPriority(8)
                 
                 NavigationLink(destination: PlaybackView()) {
                     Text("playback")
@@ -352,6 +365,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(CardButtonStyle(height: 100))
                 .buttonStyle(OnPressButtonStyle())
+                .accessibilitySortPriority(8)
                 
                 NavigationLink(destination: PlaybackView()) {
                     Text("font")
@@ -359,6 +373,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(CardButtonStyle(height: 100))
                 .buttonStyle(OnPressButtonStyle())
+                .accessibilitySortPriority(8)
                 
                 NavigationLink(destination: ColourSettingsView()) {
                     Text("colour")
@@ -366,6 +381,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(CardButtonStyle(height: 100))
                 .buttonStyle(OnPressButtonStyle())
+                .accessibilitySortPriority(8)
                 
                 Spacer()
             }
@@ -386,20 +402,38 @@ struct ButtonCarouselView: View {
     }
     
     var body: some View {
-        TabView(selection: self.$currentButton) {
-            ForEach(1..<(self.buttons.count + 1)) { i in
-                NavigationLink(destination: PlaybackView()) {
-                    Text(self.buttons[i] ?? "default")
+        if #available(iOS 15.0, *) {
+            TabView(selection: self.$currentButton) {
+                ForEach(1..<(self.buttons.count + 1)) { i in
+                    NavigationLink(destination: PlaybackView()) {
+                        Text(self.buttons[i] ?? "default")
+                    }
+                    .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
+                    .buttonStyle(OnPressButtonStyle())
+                    .tag(i)
                 }
-                .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
-                .buttonStyle(OnPressButtonStyle())
-                .tag(i)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .tabViewStyle(PageTabViewStyle())
+            .animation(.easeInOut)
+            .transition(.slide)
+            .accessibilityChildren {
+                List {
+                    NavigationLink(destination: PlaybackView()) {
+                        Text("scan text")
+                    }
+                    NavigationLink(destination: PlaybackView()) {
+                        Text("detect bill")
+                    }
+                    NavigationLink(destination: PlaybackView()) {
+                        Text("detect colour")
+                    }
+                }
+            }
+            .accessibilitySortPriority(9)
+        } else {
+            Text("oops lol sux 4 u")
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .tabViewStyle(PageTabViewStyle())
-        .animation(.easeInOut)
-        .transition(.slide)
     }
 }
 
