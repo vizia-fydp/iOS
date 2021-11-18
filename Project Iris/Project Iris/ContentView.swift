@@ -315,14 +315,14 @@ struct ColourSettingsView: View {
         AppThemeContainer(pageTitle: "colour settings", home: false) {
             VStack {
                 Button {
-                    play = !play
+                    print("colour")
                 } label: {
                     Text("Colour")
                 }
                 .buttonStyle(CardButtonStyle(height: 100))
                 
                 Button {
-                    play = !play
+                    print("invert")
                 } label: {
                     Text("Invert")
                 }
@@ -360,7 +360,7 @@ struct SettingsView: View {
                 .buttonStyle(CardButtonStyle(height: 100))
                 .buttonStyle(OnPressButtonStyle())
                 
-                NavigationLink(destination: PlaybackView()) {
+                NavigationLink(destination: ColourSettingsView()) {
                     Text("colour")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }
