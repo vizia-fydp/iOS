@@ -20,6 +20,16 @@
 		3B69DF4E2726357F0023FF96 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF452726357E0023FF96 /* Roboto-Bold.ttf */; };
 		3B69DF4F2726357F0023FF96 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF462726357E0023FF96 /* Roboto-Regular.ttf */; };
 		3B69DF502726357F0023FF96 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */; };
+		E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4342790878D00DE543E /* AppThemeContainer.swift */; };
+		E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4372790887500DE543E /* ComponentViews.swift */; };
+		E7CBE43A2790891200DE543E /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4392790891200DE543E /* PlaybackView.swift */; };
+		E7CBE43C2790896B00DE543E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE43B2790896B00DE543E /* SettingsView.swift */; };
+		E7CBE43E279089C200DE543E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE43D279089C200DE543E /* HomeView.swift */; };
+		E7CBE44027908A3200DE543E /* ComponentStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE43F27908A3200DE543E /* ComponentStyles.swift */; };
+		E7CBE44227908A9400DE543E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44127908A9400DE543E /* Extensions.swift */; };
+		E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */; };
+		E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44527908B0F00DE543E /* Modifiers.swift */; };
+		E7CBE44827908B5400DE543E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44727908B5400DE543E /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +48,16 @@
 		3B69DF452726357E0023FF96 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		3B69DF462726357E0023FF96 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		E7CBE4342790878D00DE543E /* AppThemeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeContainer.swift; sourceTree = "<group>"; };
+		E7CBE4372790887500DE543E /* ComponentViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViews.swift; sourceTree = "<group>"; };
+		E7CBE4392790891200DE543E /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		E7CBE43B2790896B00DE543E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E7CBE43D279089C200DE543E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E7CBE43F27908A3200DE543E /* ComponentStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentStyles.swift; sourceTree = "<group>"; };
+		E7CBE44127908A9400DE543E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourSettingsView.swift; sourceTree = "<group>"; };
+		E7CBE44527908B0F00DE543E /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		E7CBE44727908B5400DE543E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,10 +90,11 @@
 		3B69DF1427261EBE0023FF96 /* Project Iris */ = {
 			isa = PBXGroup;
 			children = (
+				E7CBE4332790874C00DE543E /* Utils */,
+				E7CBE4322790868100DE543E /* Views */,
 				3B69DF26272635450023FF96 /* Fonts */,
 				3B69DF252726340F0023FF96 /* Project-Iris-Info.plist */,
 				3B69DF1527261EBE0023FF96 /* Project_IrisApp.swift */,
-				3B69DF1727261EBE0023FF96 /* ContentView.swift */,
 				3B69DF1927261EC20023FF96 /* Assets.xcassets */,
 				3B69DF1B27261EC20023FF96 /* Preview Content */,
 			);
@@ -102,6 +123,31 @@
 				3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E7CBE4322790868100DE543E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E7CBE44727908B5400DE543E /* CardView.swift */,
+				3B69DF1727261EBE0023FF96 /* ContentView.swift */,
+				E7CBE4372790887500DE543E /* ComponentViews.swift */,
+				E7CBE4392790891200DE543E /* PlaybackView.swift */,
+				E7CBE43B2790896B00DE543E /* SettingsView.swift */,
+				E7CBE43D279089C200DE543E /* HomeView.swift */,
+				E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E7CBE4332790874C00DE543E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E7CBE4342790878D00DE543E /* AppThemeContainer.swift */,
+				E7CBE43F27908A3200DE543E /* ComponentStyles.swift */,
+				E7CBE44127908A9400DE543E /* Extensions.swift */,
+				E7CBE44527908B0F00DE543E /* Modifiers.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,8 +229,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7CBE43A2790891200DE543E /* PlaybackView.swift in Sources */,
+				E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */,
+				E7CBE44227908A9400DE543E /* Extensions.swift in Sources */,
+				E7CBE43E279089C200DE543E /* HomeView.swift in Sources */,
+				E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */,
 				3B69DF1827261EBE0023FF96 /* ContentView.swift in Sources */,
+				E7CBE43C2790896B00DE543E /* SettingsView.swift in Sources */,
 				3B69DF1627261EBE0023FF96 /* Project_IrisApp.swift in Sources */,
+				E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */,
+				E7CBE44027908A3200DE543E /* ComponentStyles.swift in Sources */,
+				E7CBE44827908B5400DE543E /* CardView.swift in Sources */,
+				E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
