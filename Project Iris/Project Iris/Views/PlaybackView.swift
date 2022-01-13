@@ -15,8 +15,8 @@ struct PlaybackView: View {
     
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
-            VStack {
-                if #available(iOS 15.0, *) {
+            if #available(iOS 15.0, *) {
+                VStack {
                     Card(height: 200) {
                         HStack() {
                             ForEach(0..<speedOptions.count, id: \.self) { i in
@@ -52,37 +52,38 @@ struct PlaybackView: View {
                         .accessibilityLabel(Text("playback speeds; currently 100%"))
                     }
                     .accessibilitySortPriority(6)
-                } else {
-                    Text("loser")
-                }
                 
-                Button {
-                    play = !play
-                } label: {
-                    Image(systemName: play ? "play.fill" : "pause.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
+                    Button {
+                        play = !play
+                    } label: {
+                        Image(systemName: play ? "play.fill" : "pause.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 200))
+                    .accessibilitySortPriority(7)
+                    
+                    Button {
+                        print("stop")
+                    } label: {
+                        Image(systemName: "stop.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 200))
+                    .accessibilitySortPriority(8)
+                    
+                    Spacer()
                 }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(7)
-                
-                Button {
-                    print("stop")
-                } label: {
-                    Image(systemName: "stop.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
-                }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(8)
-                
-                Spacer()
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+//                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16.0))
+            } else {
+                Text("loser")
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         }
     }
 }

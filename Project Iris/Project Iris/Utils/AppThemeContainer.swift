@@ -50,7 +50,7 @@ struct AppThemeContainer <Content : View> : View {
                         Button {
                             presentationMode.wrappedValue.dismiss()
                         } label: {
-                            Image(systemName: "chevron.left")
+                            Image(systemName: "chevron.down")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .imageScale(.small)

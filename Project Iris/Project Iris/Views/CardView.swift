@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// Accepts "height" as an explicit argument
+// Code for any generic "card" style item (non-button)
 struct Card <Content : View> : View {
     var content : Content
     var height: Int
