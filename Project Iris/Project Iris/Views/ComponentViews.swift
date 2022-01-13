@@ -70,10 +70,12 @@ struct ChevronButton: ButtonStyle {
 
 struct ButtonCarouselView: View {
     @Binding var currentButton: Int
+    @Binding var showImagePicker: Bool
     var buttons : [Int: String]
     
-    init(buttons: [Int: String], currentButton: Binding<Int>) {
+    init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>) {
         self._currentButton = currentButton
+        self._showImagePicker = showImagePicker
         self.buttons = buttons
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("appBlack"))
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.3)
@@ -83,8 +85,8 @@ struct ButtonCarouselView: View {
         if #available(iOS 15.0, *) {
             TabView(selection: self.$currentButton) {
                 ForEach(1..<(self.buttons.count + 1)) { i in
-                    NavigationLink(destination: PlaybackView()) {
-                        Text(self.buttons[i] ?? "default")
+                    Button(self.buttons[i] ?? "default") {
+                        self.showImagePicker = true
                     }
                     .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
                     .buttonStyle(OnPressButtonStyle())
