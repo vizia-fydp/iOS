@@ -15,7 +15,7 @@ struct HomeView: View {
     @State private var currentButton: Int = 1
 
     private var speech = Speech()
-    private var serverUrl = "https://9659-65-92-74-233.ngrok.io"
+    private var serverUrl = "https://3db9-64-229-196-195.ngrok.io/"
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -54,8 +54,7 @@ struct HomeView: View {
         print(scaledImage)
         let headers: HTTPHeaders = [.contentType("image/jpeg")]
         guard let imageData = scaledImage.jpegData(compressionQuality: 0.50) else { return }
-//        AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseDecodable(of: ColorDetectionResponse.self) { response in
-        AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseJSON { response in
+        AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseDecodable(of: ColorDetectionResponse.self) { response in
             switch response.result {
                 case .success:
                     print(response.result)
