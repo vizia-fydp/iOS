@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import UIKit
 
+@available(iOS 15.0, *)
 struct HomeView: View {
-    @State private var showSheet: Bool = false
     @State private var currentButton: Int = 1
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -18,7 +19,7 @@ struct HomeView: View {
     
     var body: some View {
         AppThemeContainer(pageTitle: "home", home: true) {
-            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showSheet: $showSheet)
+            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showSheet: self.showSheet())
 
             Button {
                 currentButton = currentButton == actionButtons.count ? 1 : currentButton + 1
@@ -28,8 +29,13 @@ struct HomeView: View {
             .buttonStyle(PageButton())
             .accessibilityHidden(true)
         }
-        .sheet(isPresented: $showSheet) {
-            PlaybackView()
+    }
+    
+    func showSheet() {
+        let vc = UIHostingController(rootView: PlaybackView())
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium()]
         }
+        
     }
 }

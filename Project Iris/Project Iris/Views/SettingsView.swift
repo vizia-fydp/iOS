@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct SettingsView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "settings", home: false) {

@@ -30,6 +30,8 @@
 		E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */; };
 		E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44527908B0F00DE543E /* Modifiers.swift */; };
 		E7CBE44827908B5400DE543E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44727908B5400DE543E /* CardView.swift */; };
+		E7CBE44D2790A62C00DE543E /* FlexibleSheetContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */; };
+		E7CBE44F2790AA4000DE543E /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44E2790AA4000DE543E /* SheetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourSettingsView.swift; sourceTree = "<group>"; };
 		E7CBE44527908B0F00DE543E /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		E7CBE44727908B5400DE543E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleSheetContainer.swift; sourceTree = "<group>"; };
+		E7CBE44E2790AA4000DE543E /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		3B69DF1427261EBE0023FF96 /* Project Iris */ = {
 			isa = PBXGroup;
 			children = (
+				E7CBE44B2790A60F00DE543E /* ViewControllers */,
 				E7CBE4332790874C00DE543E /* Utils */,
 				E7CBE4322790868100DE543E /* Views */,
 				3B69DF26272635450023FF96 /* Fonts */,
@@ -148,6 +153,15 @@
 				E7CBE44527908B0F00DE543E /* Modifiers.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		E7CBE44B2790A60F00DE543E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */,
+				E7CBE44E2790AA4000DE543E /* SheetViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,11 +247,13 @@
 				E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */,
 				E7CBE44227908A9400DE543E /* Extensions.swift in Sources */,
 				E7CBE43E279089C200DE543E /* HomeView.swift in Sources */,
+				E7CBE44F2790AA4000DE543E /* SheetViewController.swift in Sources */,
 				E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */,
 				3B69DF1827261EBE0023FF96 /* ContentView.swift in Sources */,
 				E7CBE43C2790896B00DE543E /* SettingsView.swift in Sources */,
 				3B69DF1627261EBE0023FF96 /* Project_IrisApp.swift in Sources */,
 				E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */,
+				E7CBE44D2790A62C00DE543E /* FlexibleSheetContainer.swift in Sources */,
 				E7CBE44027908A3200DE543E /* ComponentStyles.swift in Sources */,
 				E7CBE44827908B5400DE543E /* CardView.swift in Sources */,
 				E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */,

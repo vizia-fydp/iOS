@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 @main
 struct Project_IrisApp: App {
     var body: some Scene {
