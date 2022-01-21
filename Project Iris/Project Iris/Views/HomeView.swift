@@ -15,7 +15,7 @@ struct HomeView: View {
     @State private var currentButton: Int = 1
 
     private var speech = Speech()
-    private var serverUrl = "https://3db9-64-229-196-195.ngrok.io/"
+    private var serverUrl = "https://199f-64-229-183-215.ngrok.io"
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -45,13 +45,34 @@ struct HomeView: View {
     }
 
     private func processImage() {
-//        guard let scaledImage = inputImage?.scaledImage(1000) else { return }
-        colorDetection()
+//        colorDetection()
+        ocr()
+    }
+
+    private func ocr() {
+        guard let scaledImage = inputImage?.scaledImage(1000) else { return }
+        let headers: HTTPHeaders = [.contentType("image/jpeg")]
+        guard let imageData = scaledImage.jpegData(compressionQuality: 0.50)?.base64EncodedString() else { return }
+        AF.upload(Data(imageData.utf8), to: "\(serverUrl)/ocr", headers: headers).responseDecodable(of: OcrResponse.self) { response in
+            switch response.result {
+                case .success:
+                    print(response.result)
+                    if let data = response.data {
+                        do {
+                            let decoded = try JSONDecoder().decode(OcrResponse.self, from: data)
+                            speech.speak(text: decoded.text)
+                        } catch {
+                            print("Error decoding JSON response for OCR")
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+            }
+        }
     }
 
     private func colorDetection() {
         guard let scaledImage = inputImage?.scaledImage(1000) else { return }
-        print(scaledImage)
         let headers: HTTPHeaders = [.contentType("image/jpeg")]
         guard let imageData = scaledImage.jpegData(compressionQuality: 0.50) else { return }
         AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseDecodable(of: ColorDetectionResponse.self) { response in
@@ -68,7 +89,6 @@ struct HomeView: View {
                         }
                     }
                 case .failure(let error):
-                    print("Something went wrong")
                     print(error)
             }
         }

@@ -11,3 +11,8 @@ struct ColorDetectionResponse : Codable {
     let colors : String
     let rgb : [[Float]]
 }
+
+struct OcrResponse : Codable {
+    let text : String
+}
+
