@@ -16,9 +16,11 @@ struct OnPressButtonStyle: ButtonStyle {
 
 struct CardButtonStyle: ButtonStyle {
     var height: CGFloat
+    var square: Bool
     
-    init(height: CGFloat) {
+    init(height: CGFloat, square: Bool = false) {
         self.height = height
+        self.square = square
     }
     
     func makeBody(configuration: Configuration) -> some View {
@@ -30,9 +32,9 @@ struct CardButtonStyle: ButtonStyle {
             )
             .font(Font.custom("Roboto-Black", size: 48))
             .clipShape(RoundedRectangle(cornerRadius: 5.0))
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: self.height)
-            .padding(.horizontal, 30)
-            .padding(.vertical, 15)
+            .frame(minWidth: 0, maxWidth: self.square ? self.height : .infinity, minHeight: 0, maxHeight: self.height)
+            .padding(.horizontal, self.square ? 0 : 30)
+            .padding(.vertical, self.square ? 0 : 15)
             .foregroundColor(configuration.isPressed ? Color("accentGrey") : Color("appBlack"))
     }
 }

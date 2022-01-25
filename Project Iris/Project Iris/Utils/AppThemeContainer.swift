@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct AppThemeContainer <Content : View> : View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -50,7 +51,7 @@ struct AppThemeContainer <Content : View> : View {
                         Button {
                             presentationMode.wrappedValue.dismiss()
                         } label: {
-                            Image(systemName: "chevron.left")
+                            Image(systemName: "chevron.down")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .imageScale(.small)

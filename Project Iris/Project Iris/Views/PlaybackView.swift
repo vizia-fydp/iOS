@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct PlaybackView: View {
     @State private var play: Bool = false
     @State private var speed: Int = 1
@@ -16,69 +17,73 @@ struct PlaybackView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
             VStack {
-                if #available(iOS 15.0, *) {
-                    Card(height: 200) {
-                        HStack() {
-                            ForEach(0..<speedOptions.count, id: \.self) { i in
-                                Text(speedOptions[i])
-                                    .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
-                                    .padding(.horizontal, 10)
-                                    .animatableFont(name: "Roboto-Black", size: fontSizes[i])
-                                    .onTapGesture {
-                                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
-                                            speed = i
-                                            for j in 0..<fontSizes.count {
-                                                fontSizes[j] = j == i ? 48 : 32
-                                            }
+                Card(height: 175) {
+                    HStack() {
+                        ForEach(0..<speedOptions.count, id: \.self) { i in
+                            Text(speedOptions[i])
+                                .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
+                                .padding(.horizontal, 10)
+                                .animatableFont(name: "Roboto-Black", size: fontSizes[i])
+                                .onTapGesture {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
+                                        speed = i
+                                        for j in 0..<fontSizes.count {
+                                            fontSizes[j] = j == i ? 48 : 32
                                         }
                                     }
-                            }
+                                }
                         }
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.horizontal, 20)
                     }
-                    .accessibilityChildren {
-                        List {
-                            NavigationLink(destination: PlaybackView()) {
-                                Text("50%")
-                            }
-                            NavigationLink(destination: PlaybackView()) {
-                                Text("100%")
-                            }
-                            NavigationLink(destination: PlaybackView()) {
-                                Text("150%")
-                            }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .padding(.horizontal, 20)
+                }
+                .accessibilityChildren {
+                    List {
+                        NavigationLink(destination: PlaybackView()) {
+                            Text("50%")
                         }
-                        .accessibilityLabel(Text("playback speeds; currently 100%"))
+                        NavigationLink(destination: PlaybackView()) {
+                            Text("100%")
+                        }
+                        NavigationLink(destination: PlaybackView()) {
+                            Text("150%")
+                        }
                     }
-                    .accessibilitySortPriority(6)
-                } else {
-                    Text("loser")
+                    .accessibilityLabel(Text("playback speeds; currently 100%"))
                 }
-                
-                Button {
-                    play = !play
-                } label: {
-                    Image(systemName: play ? "play.fill" : "pause.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
+                .accessibilitySortPriority(6)
+            
+                HStack {
+                    Button {
+                        play = !play
+                    } label: {
+                        Image(systemName: play ? "play.fill" : "pause.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 175, square: true))
+                    .padding(.top, 15)
+                    .padding(.leading, 30)
+                    .padding(.trailing, 15)
+                    .accessibilitySortPriority(7)
+                    
+                    Button {
+                        print("stop")
+                    } label: {
+                        Image(systemName: "stop.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 175, square: true))
+                    .padding(.top, 15)
+                    .padding(.leading, 15)
+                    .padding(.trailing, 30)
+                    .accessibilitySortPriority(8)
                 }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(7)
-                
-                Button {
-                    print("stop")
-                } label: {
-                    Image(systemName: "stop.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
-                }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(8)
                 
                 Spacer()
             }
