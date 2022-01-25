@@ -20,6 +20,8 @@
 		3B69DF4E2726357F0023FF96 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF452726357E0023FF96 /* Roboto-Bold.ttf */; };
 		3B69DF4F2726357F0023FF96 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF462726357E0023FF96 /* Roboto-Regular.ttf */; };
 		3B69DF502726357F0023FF96 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */; };
+		E711BE4627A0643200BEC7E5 /* HalfSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E711BE4527A0643200BEC7E5 /* HalfSheetController.swift */; };
+		E711BE4827A0646E00BEC7E5 /* HalfSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E711BE4727A0646E00BEC7E5 /* HalfSheetView.swift */; };
 		E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4342790878D00DE543E /* AppThemeContainer.swift */; };
 		E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4372790887500DE543E /* ComponentViews.swift */; };
 		E7CBE43A2790891200DE543E /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE4392790891200DE543E /* PlaybackView.swift */; };
@@ -30,8 +32,6 @@
 		E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */; };
 		E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44527908B0F00DE543E /* Modifiers.swift */; };
 		E7CBE44827908B5400DE543E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44727908B5400DE543E /* CardView.swift */; };
-		E7CBE44D2790A62C00DE543E /* FlexibleSheetContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */; };
-		E7CBE44F2790AA4000DE543E /* SheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CBE44E2790AA4000DE543E /* SheetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +50,8 @@
 		3B69DF452726357E0023FF96 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		3B69DF462726357E0023FF96 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		E711BE4527A0643200BEC7E5 /* HalfSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheetController.swift; sourceTree = "<group>"; };
+		E711BE4727A0646E00BEC7E5 /* HalfSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheetView.swift; sourceTree = "<group>"; };
 		E7CBE4342790878D00DE543E /* AppThemeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeContainer.swift; sourceTree = "<group>"; };
 		E7CBE4372790887500DE543E /* ComponentViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentViews.swift; sourceTree = "<group>"; };
 		E7CBE4392790891200DE543E /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
@@ -60,8 +62,6 @@
 		E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourSettingsView.swift; sourceTree = "<group>"; };
 		E7CBE44527908B0F00DE543E /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		E7CBE44727908B5400DE543E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleSheetContainer.swift; sourceTree = "<group>"; };
-		E7CBE44E2790AA4000DE543E /* SheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +94,7 @@
 		3B69DF1427261EBE0023FF96 /* Project Iris */ = {
 			isa = PBXGroup;
 			children = (
-				E7CBE44B2790A60F00DE543E /* ViewControllers */,
+				E711BE4427A0640900BEC7E5 /* ViewControllers */,
 				E7CBE4332790874C00DE543E /* Utils */,
 				E7CBE4322790868100DE543E /* Views */,
 				3B69DF26272635450023FF96 /* Fonts */,
@@ -130,6 +130,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		E711BE4427A0640900BEC7E5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E711BE4527A0643200BEC7E5 /* HalfSheetController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		E7CBE4322790868100DE543E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +148,7 @@
 				E7CBE43B2790896B00DE543E /* SettingsView.swift */,
 				E7CBE43D279089C200DE543E /* HomeView.swift */,
 				E7CBE44327908ACC00DE543E /* ColourSettingsView.swift */,
+				E711BE4727A0646E00BEC7E5 /* HalfSheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -153,15 +162,6 @@
 				E7CBE44527908B0F00DE543E /* Modifiers.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		E7CBE44B2790A60F00DE543E /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				E7CBE44C2790A62C00DE543E /* FlexibleSheetContainer.swift */,
-				E7CBE44E2790AA4000DE543E /* SheetViewController.swift */,
-			);
-			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,16 +244,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7CBE43A2790891200DE543E /* PlaybackView.swift in Sources */,
+				E711BE4827A0646E00BEC7E5 /* HalfSheetView.swift in Sources */,
 				E7CBE44627908B0F00DE543E /* Modifiers.swift in Sources */,
+				E711BE4627A0643200BEC7E5 /* HalfSheetController.swift in Sources */,
 				E7CBE44227908A9400DE543E /* Extensions.swift in Sources */,
 				E7CBE43E279089C200DE543E /* HomeView.swift in Sources */,
-				E7CBE44F2790AA4000DE543E /* SheetViewController.swift in Sources */,
 				E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */,
 				3B69DF1827261EBE0023FF96 /* ContentView.swift in Sources */,
 				E7CBE43C2790896B00DE543E /* SettingsView.swift in Sources */,
 				3B69DF1627261EBE0023FF96 /* Project_IrisApp.swift in Sources */,
 				E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */,
-				E7CBE44D2790A62C00DE543E /* FlexibleSheetContainer.swift in Sources */,
 				E7CBE44027908A3200DE543E /* ComponentStyles.swift in Sources */,
 				E7CBE44827908B5400DE543E /* CardView.swift in Sources */,
 				E7CBE44427908ACC00DE543E /* ColourSettingsView.swift in Sources */,

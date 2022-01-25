@@ -17,7 +17,7 @@ struct PlaybackView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
             VStack {
-                Card(height: 200) {
+                Card(height: 175) {
                     HStack() {
                         ForEach(0..<speedOptions.count, id: \.self) { i in
                             Text(speedOptions[i])
@@ -53,29 +53,37 @@ struct PlaybackView: View {
                 }
                 .accessibilitySortPriority(6)
             
-                Button {
-                    play = !play
-                } label: {
-                    Image(systemName: play ? "play.fill" : "pause.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
+                HStack {
+                    Button {
+                        play = !play
+                    } label: {
+                        Image(systemName: play ? "play.fill" : "pause.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 175, square: true))
+                    .padding(.top, 15)
+                    .padding(.leading, 30)
+                    .padding(.trailing, 15)
+                    .accessibilitySortPriority(7)
+                    
+                    Button {
+                        print("stop")
+                    } label: {
+                        Image(systemName: "stop.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                            .padding(.vertical, 45)
+                    }
+                    .buttonStyle(CardButtonStyle(height: 175, square: true))
+                    .padding(.top, 15)
+                    .padding(.leading, 15)
+                    .padding(.trailing, 30)
+                    .accessibilitySortPriority(8)
                 }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(7)
-                
-                Button {
-                    print("stop")
-                } label: {
-                    Image(systemName: "stop.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .padding(.vertical, 45)
-                }
-                .buttonStyle(CardButtonStyle(height: 200))
-                .accessibilitySortPriority(8)
                 
                 Spacer()
             }
