@@ -4,9 +4,9 @@
 //
 //  Created by Connor Barker on 2022-01-13.
 //
-
 import SwiftUI
 
+// Card style button (home page)
 struct PrimaryButton: ButtonStyle {
     @Binding var currentButton: Int
     var totalButtons: Int
@@ -48,6 +48,7 @@ struct PrimaryButton: ButtonStyle {
     }
 }
 
+// Numbered pagination button
 struct PageButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -59,6 +60,7 @@ struct PageButton: ButtonStyle {
     }
 }
 
+// Chevron style pagination button
 struct ChevronButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -68,14 +70,15 @@ struct ChevronButton: ButtonStyle {
     }
 }
 
+// Container for home page buttons
 struct ButtonCarouselView: View {
+    @Binding var showSheet: Bool
     @Binding var currentButton: Int
-    @Binding var showImagePicker: Bool
     var buttons : [Int: String]
     
-    init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>) {
+    init(buttons: [Int: String], currentButton: Binding<Int>, showSheet: Binding<Bool>) {
         self._currentButton = currentButton
-        self._showImagePicker = showImagePicker
+        self._showSheet = showSheet
         self.buttons = buttons
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("appBlack"))
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.3)
@@ -86,7 +89,7 @@ struct ButtonCarouselView: View {
             TabView(selection: self.$currentButton) {
                 ForEach(1..<(self.buttons.count + 1)) { i in
                     Button(self.buttons[i] ?? "default") {
-                        self.showImagePicker = true
+                        self.showSheet = true
                     }
                     .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
                     .buttonStyle(OnPressButtonStyle())

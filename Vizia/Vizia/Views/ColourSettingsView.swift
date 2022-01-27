@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct ColourSettingsView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "colour settings", home: false) {

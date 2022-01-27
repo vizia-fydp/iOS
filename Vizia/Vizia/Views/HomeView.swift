@@ -8,8 +8,11 @@
 import SwiftUI
 import AVFoundation
 import Alamofire
+import UIKit
 
+@available(iOS 15.0, *)
 struct HomeView: View {
+    @State private var showSheet: Bool = false
     @State private var showImagePicker = false
     @State private var inputImage: UIImage?
     @State private var currentButton: Int = 1
@@ -25,7 +28,7 @@ struct HomeView: View {
     
     var body: some View {
         AppThemeContainer(pageTitle: "home", home: true) {
-            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showImagePicker: $showImagePicker)
+            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showSheet: $showSheet)
 
             Button {
                 currentButton = currentButton == actionButtons.count ? 1 : currentButton + 1
@@ -38,6 +41,12 @@ struct HomeView: View {
         .onAppear {
             // Configure audio to play in background
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        }
+        .sheet(isPresented: $showSheet) {
+            HalfSheet {
+                PlaybackView()
+            }
+            .edgesIgnoringSafeArea(.bottom)
         }
         .sheet(isPresented: $showImagePicker, onDismiss: processImage) {
             ImagePicker(image: $inputImage)
