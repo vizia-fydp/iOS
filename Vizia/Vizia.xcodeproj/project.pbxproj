@@ -20,9 +20,10 @@
 		3B69DF4E2726357F0023FF96 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF452726357E0023FF96 /* Roboto-Bold.ttf */; };
 		3B69DF4F2726357F0023FF96 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF462726357E0023FF96 /* Roboto-Regular.ttf */; };
 		3B69DF502726357F0023FF96 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF472726357E0023FF96 /* Roboto-ThinItalic.ttf */; };
+		7E16DC6D27A30ECB008D10D6 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7E16DC6C27A30ECB008D10D6 /* SocketIO */; };
+		7E16DC7027A30ED8008D10D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7E16DC6F27A30ED8008D10D6 /* Alamofire */; };
 		7E452B5C2790902200EE764F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E452B5B2790902200EE764F /* ImagePicker.swift */; };
 		7E452B5E2790902E00EE764F /* Speech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E452B5D2790902E00EE764F /* Speech.swift */; };
-		7E452B612790A23900EE764F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7E452B602790A23900EE764F /* Alamofire */; };
 		7E452B632790A29C00EE764F /* JsonCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E452B622790A29C00EE764F /* JsonCodable.swift */; };
 		E711BE4627A0643200BEC7E5 /* HalfSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E711BE4527A0643200BEC7E5 /* HalfSheetController.swift */; };
 		E711BE4827A0646E00BEC7E5 /* HalfSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E711BE4727A0646E00BEC7E5 /* HalfSheetView.swift */; };
@@ -76,7 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E452B612790A23900EE764F /* Alamofire in Frameworks */,
+				7E16DC6D27A30ECB008D10D6 /* SocketIO in Frameworks */,
+				7E16DC7027A30ED8008D10D6 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,9 +194,10 @@
 			);
 			name = Vizia;
 			packageProductDependencies = (
-				7E452B602790A23900EE764F /* Alamofire */,
+				7E16DC6C27A30ECB008D10D6 /* SocketIO */,
+				7E16DC6F27A30ED8008D10D6 /* Alamofire */,
 			);
-			productName = "Vizia";
+			productName = Vizia;
 			productReference = 3B69DF1227261EBE0023FF96 /* Vizia.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -223,7 +226,8 @@
 			);
 			mainGroup = 3B69DF0927261EBE0023FF96;
 			packageReferences = (
-				7E452B5F2790A23900EE764F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				7E16DC6B27A30ECB008D10D6 /* XCRemoteSwiftPackageReference "socket" */,
+				7E16DC6E27A30ED8008D10D6 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 3B69DF1327261EBE0023FF96 /* Products */;
 			projectDirPath = "";
@@ -487,20 +491,33 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7E452B5F2790A23900EE764F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		7E16DC6B27A30ECB008D10D6 /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		7E16DC6E27A30ED8008D10D6 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7E452B602790A23900EE764F /* Alamofire */ = {
+		7E16DC6C27A30ECB008D10D6 /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7E452B5F2790A23900EE764F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = 7E16DC6B27A30ECB008D10D6 /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
+		};
+		7E16DC6F27A30ED8008D10D6 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E16DC6E27A30ED8008D10D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import SocketIO
 import Alamofire
 import UIKit
 
@@ -16,9 +17,10 @@ struct HomeView: View {
     @State private var showImagePicker = false
     @State private var inputImage: UIImage?
     @State private var currentButton: Int = 1
+    @State private var socketManager : SocketManager?
 
-    private var speech = Speech()
-    private var serverUrl = "https://0b50-64-229-183-215.ngrok.io"
+    private let serverUrl = "https://581a-64-229-183-215.ngrok.io"
+    private let speech = Speech()
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -41,6 +43,20 @@ struct HomeView: View {
         .onAppear {
             // Configure audio to play in background
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+
+            // SocketIO setup
+            socketManager = SocketManager(socketURL: URL(string: serverUrl)!, config: [.log(false), .compress])
+            let socket = socketManager!.defaultSocket
+            socket.on(clientEvent: .connect) {data, ack in
+                print("socket connected")
+            }
+            socket.on("test") {data, ack in
+                guard let msg = data[0] as? String else { return }
+                print(msg)
+                showPlaybackView = true
+                speech.speak(text: msg)
+            }
+            socket.connect()
         }
         .sheet(isPresented: $showPlaybackView) {
             HalfSheet {
