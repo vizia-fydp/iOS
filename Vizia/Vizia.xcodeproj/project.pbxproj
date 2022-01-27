@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B69DF1627261EBE0023FF96 /* Project_IrisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B69DF1527261EBE0023FF96 /* Project_IrisApp.swift */; };
+		3B69DF1627261EBE0023FF96 /* ViziaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B69DF1527261EBE0023FF96 /* ViziaApp.swift */; };
 		3B69DF1827261EBE0023FF96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B69DF1727261EBE0023FF96 /* ContentView.swift */; };
 		3B69DF1A27261EC20023FF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF1927261EC20023FF96 /* Assets.xcassets */; };
 		3B69DF1D27261EC20023FF96 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B69DF1C27261EC20023FF96 /* Preview Assets.xcassets */; };
@@ -35,12 +35,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B69DF1227261EBE0023FF96 /* Project Iris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Iris.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B69DF1527261EBE0023FF96 /* Project_IrisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project_IrisApp.swift; sourceTree = "<group>"; };
+		3B69DF1227261EBE0023FF96 /* Vizia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vizia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B69DF1527261EBE0023FF96 /* ViziaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViziaApp.swift; sourceTree = "<group>"; };
 		3B69DF1727261EBE0023FF96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3B69DF1927261EC20023FF96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B69DF1C27261EC20023FF96 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3B69DF252726340F0023FF96 /* Project-Iris-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Project-Iris-Info.plist"; sourceTree = SOURCE_ROOT; };
+		3B69DF252726340F0023FF96 /* Vizia-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Vizia-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B69DF3F2726357E0023FF96 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		3B69DF402726357E0023FF96 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		3B69DF412726357E0023FF96 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		3B69DF0927261EBE0023FF96 = {
 			isa = PBXGroup;
 			children = (
-				3B69DF1427261EBE0023FF96 /* Project Iris */,
+				3B69DF1427261EBE0023FF96 /* Vizia */,
 				3B69DF1327261EBE0023FF96 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,24 +86,24 @@
 		3B69DF1327261EBE0023FF96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B69DF1227261EBE0023FF96 /* Project Iris.app */,
+				3B69DF1227261EBE0023FF96 /* Vizia.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3B69DF1427261EBE0023FF96 /* Project Iris */ = {
+		3B69DF1427261EBE0023FF96 /* Vizia */ = {
 			isa = PBXGroup;
 			children = (
 				E711BE4427A0640900BEC7E5 /* ViewControllers */,
 				E7CBE4332790874C00DE543E /* Utils */,
 				E7CBE4322790868100DE543E /* Views */,
 				3B69DF26272635450023FF96 /* Fonts */,
-				3B69DF252726340F0023FF96 /* Project-Iris-Info.plist */,
-				3B69DF1527261EBE0023FF96 /* Project_IrisApp.swift */,
+				3B69DF252726340F0023FF96 /* Vizia-Info.plist */,
+				3B69DF1527261EBE0023FF96 /* ViziaApp.swift */,
 				3B69DF1927261EC20023FF96 /* Assets.xcassets */,
 				3B69DF1B27261EC20023FF96 /* Preview Content */,
 			);
-			path = "Project Iris";
+			path = Vizia;
 			sourceTree = "<group>";
 		};
 		3B69DF1B27261EC20023FF96 /* Preview Content */ = {
@@ -167,9 +167,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3B69DF1127261EBE0023FF96 /* Project Iris */ = {
+		3B69DF1127261EBE0023FF96 /* Vizia */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B69DF2027261EC20023FF96 /* Build configuration list for PBXNativeTarget "Project Iris" */;
+			buildConfigurationList = 3B69DF2027261EC20023FF96 /* Build configuration list for PBXNativeTarget "Vizia" */;
 			buildPhases = (
 				3B69DF0E27261EBE0023FF96 /* Sources */,
 				3B69DF0F27261EBE0023FF96 /* Frameworks */,
@@ -179,9 +179,9 @@
 			);
 			dependencies = (
 			);
-			name = "Project Iris";
+			name = Vizia;
 			productName = "Project Iris";
-			productReference = 3B69DF1227261EBE0023FF96 /* Project Iris.app */;
+			productReference = 3B69DF1227261EBE0023FF96 /* Vizia.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3B69DF0D27261EBE0023FF96 /* Build configuration list for PBXProject "Project Iris" */;
+			buildConfigurationList = 3B69DF0D27261EBE0023FF96 /* Build configuration list for PBXProject "Vizia" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -212,7 +212,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B69DF1127261EBE0023FF96 /* Project Iris */,
+				3B69DF1127261EBE0023FF96 /* Vizia */,
 			);
 		};
 /* End PBXProject section */
@@ -252,7 +252,7 @@
 				E7CBE4382790887500DE543E /* ComponentViews.swift in Sources */,
 				3B69DF1827261EBE0023FF96 /* ContentView.swift in Sources */,
 				E7CBE43C2790896B00DE543E /* SettingsView.swift in Sources */,
-				3B69DF1627261EBE0023FF96 /* Project_IrisApp.swift in Sources */,
+				3B69DF1627261EBE0023FF96 /* ViziaApp.swift in Sources */,
 				E7CBE4352790878D00DE543E /* AppThemeContainer.swift in Sources */,
 				E7CBE44027908A3200DE543E /* ComponentStyles.swift in Sources */,
 				E7CBE44827908B5400DE543E /* CardView.swift in Sources */,
@@ -386,11 +386,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Project Iris/Preview Content\"";
-				DEVELOPMENT_TEAM = UZ4P9GJU2M;
+				DEVELOPMENT_ASSET_PATHS = "\"Vizia/Preview Content\"";
+				DEVELOPMENT_TEAM = H27FBUR8TR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Project-Iris-Info.plist";
+				INFOPLIST_FILE = "Vizia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Vizia;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -403,7 +403,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.connorbarkr.Project-Iris";
+				PRODUCT_BUNDLE_IDENTIFIER = com.connorbarkr.Vizia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -418,11 +418,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Project Iris/Preview Content\"";
-				DEVELOPMENT_TEAM = UZ4P9GJU2M;
+				DEVELOPMENT_ASSET_PATHS = "\"Vizia/Preview Content\"";
+				DEVELOPMENT_TEAM = H27FBUR8TR;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Project-Iris-Info.plist";
+				INFOPLIST_FILE = "Vizia-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Vizia;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -435,7 +435,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.connorbarkr.Project-Iris";
+				PRODUCT_BUNDLE_IDENTIFIER = com.connorbarkr.Vizia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,7 +446,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3B69DF0D27261EBE0023FF96 /* Build configuration list for PBXProject "Project Iris" */ = {
+		3B69DF0D27261EBE0023FF96 /* Build configuration list for PBXProject "Vizia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B69DF1E27261EC20023FF96 /* Debug */,
@@ -455,7 +455,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B69DF2027261EC20023FF96 /* Build configuration list for PBXNativeTarget "Project Iris" */ = {
+		3B69DF2027261EC20023FF96 /* Build configuration list for PBXNativeTarget "Vizia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B69DF2127261EC20023FF96 /* Debug */,
