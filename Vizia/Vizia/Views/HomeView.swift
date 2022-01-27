@@ -12,23 +12,23 @@ import UIKit
 
 @available(iOS 15.0, *)
 struct HomeView: View {
-    @State private var showSheet: Bool = false
+    @State private var showPlaybackView: Bool = false
     @State private var showImagePicker = false
     @State private var inputImage: UIImage?
     @State private var currentButton: Int = 1
 
     private var speech = Speech()
-    private var serverUrl = "https://199f-64-229-183-215.ngrok.io"
+    private var serverUrl = "https://0b50-64-229-183-215.ngrok.io"
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
-        2:"detect\nbill",
-        3:"detect\ncolor"
+        2:"detect\ncolor",
+        3:"detect\nbill"
     ]
     
     var body: some View {
         AppThemeContainer(pageTitle: "home", home: true) {
-            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showSheet: $showSheet)
+            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showImagePicker: $showImagePicker)
 
             Button {
                 currentButton = currentButton == actionButtons.count ? 1 : currentButton + 1
@@ -42,7 +42,7 @@ struct HomeView: View {
             // Configure audio to play in background
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         }
-        .sheet(isPresented: $showSheet) {
+        .sheet(isPresented: $showPlaybackView) {
             HalfSheet {
                 PlaybackView()
             }
@@ -54,8 +54,17 @@ struct HomeView: View {
     }
 
     private func processImage() {
-//        colorDetection()
-        ocr()
+        showPlaybackView = true
+        switch currentButton {
+        case 1:
+//            print("Performing OCR...")
+            ocr()
+        case 2:
+//            print("Performing color detection...")
+            colorDetection()
+        default:
+            print("Not implemented")
+        }
     }
 
     private func ocr() {
