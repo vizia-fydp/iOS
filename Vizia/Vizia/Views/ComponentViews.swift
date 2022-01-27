@@ -73,13 +73,13 @@ struct ChevronButton: ButtonStyle {
 
 // Container for home page buttons
 struct ButtonCarouselView: View {
-    @Binding var showSheet: Bool
+    @Binding var showImagePicker: Bool
     @Binding var currentButton: Int
     var buttons : [Int: String]
     
-    init(buttons: [Int: String], currentButton: Binding<Int>, showSheet: Binding<Bool>) {
+    init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>) {
         self._currentButton = currentButton
-        self._showSheet = showSheet
+        self._showImagePicker = showImagePicker
         self.buttons = buttons
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("appBlack"))
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.3)
@@ -90,7 +90,7 @@ struct ButtonCarouselView: View {
             TabView(selection: self.$currentButton) {
                 ForEach(1..<(self.buttons.count + 1)) { i in
                     Button(self.buttons[i] ?? "default") {
-                        self.showSheet = true
+                        self.showImagePicker = true
                     }
                     .buttonStyle(PrimaryButton(currentButton: $currentButton, totalButtons: self.buttons.count))
                     .buttonStyle(OnPressButtonStyle())
