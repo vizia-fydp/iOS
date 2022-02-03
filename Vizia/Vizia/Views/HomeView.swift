@@ -19,7 +19,7 @@ struct HomeView: View {
     @State private var currentButton: Int = 1
     @State private var socketManager : SocketManager?
 
-    private let serverUrl = "https://581a-64-229-183-215.ngrok.io"
+    private let serverUrl = "https://b1af-64-229-183-215.ngrok.io"
     private let speech = Speech()
 
     private var actionButtons: [Int:String] = [
@@ -50,7 +50,12 @@ struct HomeView: View {
             socket.on(clientEvent: .connect) {data, ack in
                 print("socket connected")
             }
-            socket.on("test") {data, ack in
+            socket.on("iOS_info") {data, ack in
+                guard let msg = data[0] as? String else { return }
+                print(msg)
+                speech.speak(text: msg)
+            }
+            socket.on("iOS_results") {data, ack in
                 guard let msg = data[0] as? String else { return }
                 print(msg)
                 showPlaybackView = true
