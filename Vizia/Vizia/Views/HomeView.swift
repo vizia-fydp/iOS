@@ -19,15 +19,16 @@ struct HomeView: View {
     @State private var currentButton: Int = 1
     @State private var socketManager : SocketManager?
 
-    private let serverUrl = "https://b1af-64-229-183-215.ngrok.io"
+    private let serverUrl = "https://4eb6-2607-fea8-1c83-1400-f050-47bb-c7ac-6f0c.ngrok.io"
     private let speech = Speech()
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
-        2:"detect\ncolor",
-        3:"detect\nbill"
+        2:"scan\ndocument",
+        3:"detect\ncolor",
+        4:"detect\nbill"
     ]
-    
+
     var body: some View {
         AppThemeContainer(pageTitle: "home", home: true) {
             ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showImagePicker: $showImagePicker)
@@ -78,21 +79,27 @@ struct HomeView: View {
         showPlaybackView = true
         switch currentButton {
         case 1:
-//            print("Performing OCR...")
-            ocr()
+            ocr(type: "TEXT_DETECTION")
         case 2:
-//            print("Performing color detection...")
-            colorDetection()
+            ocr(type: "DOCUMENT_TEXT_DETECTION")
+        case 3:
+            colorDetection(k: 3)
+        case 4:
+            moneyClassification()
         default:
             print("Not implemented")
         }
     }
 
-    private func ocr() {
+    // type : Either "TEXT_DETECTION" or "DOCUMENT_TEXT_DETECTION"
+    private func ocr(type: String) {
+        // Prepare image for request (scale + compress)
         guard let scaledImage = inputImage?.scaledImage(1000) else { return }
-        let headers: HTTPHeaders = [.contentType("image/jpeg")]
         guard let imageData = scaledImage.jpegData(compressionQuality: 0.50)?.base64EncodedString() else { return }
-        AF.upload(Data(imageData.utf8), to: "\(serverUrl)/ocr", headers: headers).responseDecodable(of: OcrResponse.self) { response in
+
+        let headers: HTTPHeaders = [.contentType("image/jpeg")]
+
+        AF.upload(Data(imageData.utf8), to: "\(serverUrl)/ocr?type=\(type)", headers: headers).responseDecodable(of: OcrResponse.self) { response in
             switch response.result {
                 case .success:
                     print(response.result)
@@ -110,11 +117,15 @@ struct HomeView: View {
         }
     }
 
-    private func colorDetection() {
+    // k : How many colors to return
+    private func colorDetection(k: Int) {
+        // Prepare image for request (scale + compress)
         guard let scaledImage = inputImage?.scaledImage(1000) else { return }
-        let headers: HTTPHeaders = [.contentType("image/jpeg")]
         guard let imageData = scaledImage.jpegData(compressionQuality: 0.50) else { return }
-        AF.upload(imageData, to: "\(serverUrl)/detect_color", headers: headers).responseDecodable(of: ColorDetectionResponse.self) { response in
+
+        let headers: HTTPHeaders = [.contentType("image/jpeg")]
+
+        AF.upload(imageData, to: "\(serverUrl)/detect_color?k=\(k)", headers: headers).responseDecodable(of: ColorDetectionResponse.self) { response in
             switch response.result {
                 case .success:
                     print(response.result)
@@ -125,6 +136,32 @@ struct HomeView: View {
                             speech.speak(text: decoded.colors)
                         } catch {
                             print("Error decoding JSON response for Color Detection")
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+            }
+        }
+    }
+
+    private func moneyClassification() {
+        // Prepare image for request (scale + compress)
+        guard let scaledImage = inputImage?.scaledImage(1000) else { return }
+        guard let imageData = scaledImage.jpegData(compressionQuality: 0.50) else { return }
+
+        let headers: HTTPHeaders = [.contentType("image/jpeg")]
+
+        AF.upload(imageData, to: "\(serverUrl)/classify_money", headers: headers).responseDecodable(of: MoneyClassificationResponse.self) { response in
+            switch response.result {
+                case .success:
+                    print(response.result)
+
+                    if let data = response.data {
+                        do {
+                            let decoded = try JSONDecoder().decode(MoneyClassificationResponse.self, from: data)
+                            speech.speak(text: String(decoded.predicted_class))
+                        } catch {
+                            print("Error decoding JSON response for Money Classification")
                         }
                     }
                 case .failure(let error):
