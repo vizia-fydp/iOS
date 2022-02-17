@@ -12,7 +12,7 @@ struct SettingsView: View {
     var body: some View {
         AppThemeContainer(pageTitle: "settings", home: false) {
             VStack {
-                NavigationLink(destination: PlaybackView()) {
+                NavigationLink(destination: ColourSettingsView()) {
                     Text("general")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }
@@ -20,7 +20,7 @@ struct SettingsView: View {
                 .buttonStyle(OnPressButtonStyle())
                 .accessibilitySortPriority(8)
                 
-                NavigationLink(destination: PlaybackView()) {
+                NavigationLink(destination: ColourSettingsView()) {
                     Text("playback")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }
@@ -28,7 +28,7 @@ struct SettingsView: View {
                 .buttonStyle(OnPressButtonStyle())
                 .accessibilitySortPriority(8)
                 
-                NavigationLink(destination: PlaybackView()) {
+                NavigationLink(destination: ColourSettingsView()) {
                     Text("font")
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 }

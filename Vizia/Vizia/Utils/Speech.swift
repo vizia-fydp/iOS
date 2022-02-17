@@ -7,7 +7,12 @@
 
 import AVFoundation
 
+let slowRate : Float = 0.47
+let mediumRate : Float = 0.57
+let fastRate : Float = 0.67
+
 struct Speech {
+    // Synthesizer config
     private let synthesizer = AVSpeechSynthesizer()
     var voice : AVSpeechSynthesisVoice?
     var rate : Float
@@ -15,8 +20,11 @@ struct Speech {
     var postUtteranceDelay : TimeInterval
     var volume : Float
 
+    // Most recent text, used for replaying
+    var text: String?
+
     init(language : String = "en-GB",
-         rate : Float = 0.57,
+         rate : Float = mediumRate,
          pitchMultiplier : Float = 0.8,
          postUtteranceDelay: TimeInterval = 0.2,
          volume: Float = 0.8) {
@@ -27,18 +35,45 @@ struct Speech {
         self.volume = volume
     }
 
-    func speak(text : String) {
-        let utterance = AVSpeechUtterance(string: text)
+    mutating func speak(text : String, rate : Float? = nil) {
+        // Remember this text in case we need to replay it
+        self.text = text
+
+        // Remember new rate if one is specified
+        if let rate = rate {
+            self.rate = rate
+        }
 
         // Configure the utterance
+        let utterance = AVSpeechUtterance(string: text)
         utterance.rate = self.rate
         utterance.pitchMultiplier = self.pitchMultiplier
         utterance.postUtteranceDelay = self.postUtteranceDelay
         utterance.volume = self.volume
         utterance.voice = self.voice
 
+        // Halt current speech incase there is something playing
+        self.stop()
+
         // Tell the synthesizer to speak the utterance
         self.synthesizer.speak(utterance)
+    }
+
+    func pause() {
+        self.synthesizer.pauseSpeaking(at: .immediate)
+    }
+
+    func unpause() {
+        self.synthesizer.continueSpeaking()
+    }
+
+    mutating func restart(rate : Float? = nil) {
+        guard let text = self.text else { return }
+        self.speak(text: text, rate: rate)
+    }
+
+    func stop() {
+        self.synthesizer.stopSpeaking(at: .immediate)
     }
 }
 

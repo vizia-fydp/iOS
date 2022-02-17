@@ -75,16 +75,18 @@ struct ChevronButton: ButtonStyle {
 struct ButtonCarouselView: View {
     @Binding var showImagePicker: Bool
     @Binding var currentButton: Int
+    @Binding var speech: Speech
     var buttons : [Int: String]
     
-    init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>) {
+    init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>, speech: Binding<Speech>) {
         self._currentButton = currentButton
         self._showImagePicker = showImagePicker
+        self._speech = speech
         self.buttons = buttons
         UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color("appBlack"))
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.3)
     }
-    
+
     var body: some View {
         if #available(iOS 15.0, *) {
             TabView(selection: self.$currentButton) {
@@ -103,13 +105,13 @@ struct ButtonCarouselView: View {
             .transition(.slide)
             .accessibilityChildren {
                 List {
-                    NavigationLink(destination: PlaybackView()) {
+                    NavigationLink(destination: PlaybackView(speech: $speech)) {
                         Text("scan text")
                     }
-                    NavigationLink(destination: PlaybackView()) {
+                    NavigationLink(destination: PlaybackView(speech: $speech)) {
                         Text("detect bill")
                     }
-                    NavigationLink(destination: PlaybackView()) {
+                    NavigationLink(destination: PlaybackView(speech: $speech)) {
                         Text("detect colour")
                     }
                 }

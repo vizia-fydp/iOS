@@ -9,22 +9,40 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PlaybackView: View {
-    @State private var play: Bool = false
+    @State private var isPlaying: Bool = true
     @State private var speed: Int = 1
     private var speedOptions: [String] = ["x0.5", "x1", "x1.5"]
     @State private var fontSizes: [CGFloat] = [32, 48, 32]
-    
+    @Binding var speech: Speech
+
+    init(speech: Binding<Speech>) {
+        self._speech = speech
+    }
+
     var body: some View {
         AppThemeContainer(pageTitle: "playback", home: false) {
             VStack {
                 Card(height: 175) {
                     HStack() {
                         ForEach(0..<speedOptions.count, id: \.self) { i in
+                            // Speed control buttons
                             Text(speedOptions[i])
                                 .foregroundColor(speed == i ? Color("appBlack") : Color("accentGrey"))
                                 .padding(.horizontal, 10)
                                 .animatableFont(name: "Roboto-Black", size: fontSizes[i])
                                 .onTapGesture {
+                                    // No way to change rate of speech in place, have to
+                                    // restart the speech at the new rate
+                                    switch speedOptions[i] {
+                                    case "x0.5":
+                                        self.speech.restart(rate: slowRate)
+                                    case "x1":
+                                        self.speech.restart(rate: mediumRate)
+                                    case "x1.5":
+                                        self.speech.restart(rate: fastRate)
+                                    default:
+                                        self.speech.restart()
+                                    }
                                     withAnimation(.spring(response: 0.3, dampingFraction: 0.8, blendDuration: 1)) {
                                         speed = i
                                         for j in 0..<fontSizes.count {
@@ -39,25 +57,31 @@ struct PlaybackView: View {
                 }
                 .accessibilityChildren {
                     List {
-                        NavigationLink(destination: PlaybackView()) {
+                        NavigationLink(destination: PlaybackView(speech: $speech)) {
                             Text("50%")
                         }
-                        NavigationLink(destination: PlaybackView()) {
+                        NavigationLink(destination: PlaybackView(speech: $speech)) {
                             Text("100%")
                         }
-                        NavigationLink(destination: PlaybackView()) {
+                        NavigationLink(destination: PlaybackView(speech: $speech)) {
                             Text("150%")
                         }
                     }
                     .accessibilityLabel(Text("playback speeds; currently 100%"))
                 }
                 .accessibilitySortPriority(6)
-            
+
                 HStack {
+                    // Play/Pause button
                     Button {
-                        play = !play
+                        if (isPlaying) {
+                            self.speech.pause()
+                        } else {
+                            self.speech.unpause()
+                        }
+                        isPlaying = !isPlaying
                     } label: {
-                        Image(systemName: play ? "play.fill" : "pause.fill")
+                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -68,11 +92,13 @@ struct PlaybackView: View {
                     .padding(.leading, 30)
                     .padding(.trailing, 15)
                     .accessibilitySortPriority(7)
-                    
+
+                    // Repeat button
                     Button {
-                        print("stop")
+                        self.isPlaying = true
+                        self.speech.restart()
                     } label: {
-                        Image(systemName: "stop.fill")
+                        Image(systemName: "repeat")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)

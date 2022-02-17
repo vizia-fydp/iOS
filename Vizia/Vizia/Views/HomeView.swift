@@ -18,9 +18,9 @@ struct HomeView: View {
     @State private var inputImage: UIImage?
     @State private var currentButton: Int = 1
     @State private var socketManager : SocketManager?
+    @State private var speech = Speech()
 
-    private let serverUrl = "https://4eb6-2607-fea8-1c83-1400-f050-47bb-c7ac-6f0c.ngrok.io"
-    private let speech = Speech()
+    private let serverUrl = "https://1c2b-2607-fea8-1c83-1400-a45c-96fc-c52d-a7b4.ngrok.io"
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -31,7 +31,7 @@ struct HomeView: View {
 
     var body: some View {
         AppThemeContainer(pageTitle: "home", home: true) {
-            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showImagePicker: $showImagePicker)
+            ButtonCarouselView(buttons: actionButtons, currentButton: $currentButton, showImagePicker: $showImagePicker, speech: $speech)
 
             Button {
                 currentButton = currentButton == actionButtons.count ? 1 : currentButton + 1
@@ -54,19 +54,19 @@ struct HomeView: View {
             socket.on("iOS_info") {data, ack in
                 guard let msg = data[0] as? String else { return }
                 print(msg)
-                speech.speak(text: msg)
+                speech.speak(text: msg, rate: mediumRate)
             }
             socket.on("iOS_results") {data, ack in
                 guard let msg = data[0] as? String else { return }
                 print(msg)
                 showPlaybackView = true
-                speech.speak(text: msg)
+                speech.speak(text: msg, rate: mediumRate)
             }
             socket.connect()
         }
-        .sheet(isPresented: $showPlaybackView) {
+        .sheet(isPresented: $showPlaybackView, onDismiss: { speech.stop() }) {
             HalfSheet {
-                PlaybackView()
+                PlaybackView(speech: $speech)
             }
             .edgesIgnoringSafeArea(.bottom)
         }
@@ -106,7 +106,7 @@ struct HomeView: View {
                     if let data = response.data {
                         do {
                             let decoded = try JSONDecoder().decode(OcrResponse.self, from: data)
-                            speech.speak(text: decoded.text)
+                            speech.speak(text: decoded.text, rate: mediumRate)
                         } catch {
                             print("Error decoding JSON response for OCR")
                         }
@@ -133,7 +133,7 @@ struct HomeView: View {
                     if let data = response.data {
                         do {
                             let decoded = try JSONDecoder().decode(ColorDetectionResponse.self, from: data)
-                            speech.speak(text: decoded.colors)
+                            speech.speak(text: decoded.colors, rate: mediumRate)
                         } catch {
                             print("Error decoding JSON response for Color Detection")
                         }
@@ -159,7 +159,7 @@ struct HomeView: View {
                     if let data = response.data {
                         do {
                             let decoded = try JSONDecoder().decode(MoneyClassificationResponse.self, from: data)
-                            speech.speak(text: String(decoded.predicted_class))
+                            speech.speak(text: String(decoded.predicted_class), rate: mediumRate)
                         } catch {
                             print("Error decoding JSON response for Money Classification")
                         }
