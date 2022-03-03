@@ -17,6 +17,6 @@ struct OcrResponse : Codable {
 }
 
 struct MoneyClassificationResponse : Codable {
-    let predicted_class : Int
+    let predicted_class : String
 }
 
