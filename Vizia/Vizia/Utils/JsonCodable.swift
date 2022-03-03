@@ -14,9 +14,9 @@ struct ColorDetectionResponse : Codable {
 
 struct OcrResponse : Codable {
     let text : String
+    let language : String
 }
 
 struct MoneyClassificationResponse : Codable {
     let predicted_class : String
 }
-

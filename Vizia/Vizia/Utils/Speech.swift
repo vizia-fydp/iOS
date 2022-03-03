@@ -23,7 +23,7 @@ struct Speech {
     // Most recent text, used for replaying
     var text: String?
 
-    init(language : String = "en-GB",
+    init(language : String = "en",
          rate : Float = mediumRate,
          pitchMultiplier : Float = 0.8,
          postUtteranceDelay: TimeInterval = 0.2,
@@ -35,13 +35,18 @@ struct Speech {
         self.volume = volume
     }
 
-    mutating func speak(text : String, rate : Float? = nil) {
+    mutating func speak(text : String, rate : Float? = nil, language : String? = nil) {
         // Remember this text in case we need to replay it
         self.text = text
 
         // Remember new rate if one is specified
         if let rate = rate {
             self.rate = rate
+        }
+
+        // Update language if one is specified
+        if let language = language {
+            self.voice = AVSpeechSynthesisVoice(language: language)
         }
 
         // Configure the utterance
