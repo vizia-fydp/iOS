@@ -13,14 +13,16 @@ import UIKit
 
 @available(iOS 15.0, *)
 struct HomeView: View {
-    @State private var showPlaybackView: Bool = false
+    @State private var showPlaybackView = false
     @State private var showImagePicker = false
+    @State private var imageChanged = false
+
     @State private var inputImage: UIImage?
     @State private var currentButton: Int = 1
     @State private var socketManager : SocketManager?
     @State private var speech = Speech()
 
-    private let serverUrl = "https://98dd-2620-101-f000-700-0-972a-bfd8-48e8.ngrok.io"
+    private let serverUrl = "https://e397-2607-fea8-1c83-1400-5052-9f71-814d-80d7.ngrok.io"
 
     private var actionButtons: [Int:String] = [
         1:"scan\ntext",
@@ -79,11 +81,16 @@ struct HomeView: View {
             .edgesIgnoringSafeArea(.bottom)
         }
         .sheet(isPresented: $showImagePicker, onDismiss: processImage) {
-            ImagePicker(image: $inputImage)
+            ImagePicker(image: $inputImage, imageChanged: $imageChanged)
         }
     }
 
     private func processImage() {
+        // Don't do anything if no new image. User may have cancelled
+        if !imageChanged {
+            return
+        }
+
         showPlaybackView = true
         switch currentButton {
         case 1:
