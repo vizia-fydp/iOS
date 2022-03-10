@@ -18,17 +18,16 @@ struct HomeView: View {
     @State private var imageChanged = false
 
     @State private var inputImage: UIImage?
-    @State private var currentButton: Int = 1
+    @State private var currentButton = 1
     @State private var socketManager : SocketManager?
     @State private var speech = Speech()
 
-    private let serverUrl = "https://e397-2607-fea8-1c83-1400-5052-9f71-814d-80d7.ngrok.io"
-
-    private var actionButtons: [Int:String] = [
-        1:"scan\ntext",
-        2:"scan\ndocument",
-        3:"detect\ncolor",
-        4:"detect\nbill"
+    private let serverUrl = "https://2972-2607-fea8-1c83-1400-d477-2084-59b3-7b7b.ngrok.io"
+    private let actionButtons = [
+        1: "scan\ntext",
+        2: "scan\ndocument",
+        3: "detect\ncolor",
+        4: "detect\nbill"
     ]
 
     var body: some View {

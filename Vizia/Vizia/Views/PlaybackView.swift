@@ -9,12 +9,12 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PlaybackView: View {
-    @State private var isPlaying: Bool = true
-    @State private var speed: Int = 1
-    private var speedOptions: [String] = ["x0.5", "x1", "x1.5"]
-    private var speedOptionsVoiceover: [String] = ["50% playback speed", "100% playback speed", "150% playback speed"]
+    @State private var isPlaying = true
+    @State private var speed = 1
     @State private var fontSizes: [CGFloat] = [32, 48, 32]
     @Binding var speech: Speech
+    private let speedOptions = ["x0.5", "x1", "x1.5"]
+    private let speedOptionsVoiceover = ["50% playback speed", "100% playback speed", "150% playback speed"]
 
     init(speech: Binding<Speech>) {
         self._speech = speech

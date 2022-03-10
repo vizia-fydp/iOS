@@ -11,7 +11,7 @@ import SwiftUI
 struct PrimaryButton: ButtonStyle {
     @Binding var currentButton: Int
     var totalButtons: Int
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -77,7 +77,7 @@ struct ButtonCarouselView: View {
     @Binding var currentButton: Int
     @Binding var speech: Speech
     var buttons : [Int: String]
-    
+
     init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>, speech: Binding<Speech>) {
         self._currentButton = currentButton
         self._showImagePicker = showImagePicker

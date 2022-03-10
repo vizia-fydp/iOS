@@ -17,7 +17,7 @@ extension View {
     func cardStyle() -> some View {
         modifier(CardModifier())
     }
-    
+
     func animatableFont(name: String, size: CGFloat) -> some View {
         self.modifier(AnimatableCustomFontModifier(name: name, size: size))
     }
