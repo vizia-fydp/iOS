@@ -17,12 +17,12 @@ struct OnPressButtonStyle: ButtonStyle {
 struct CardButtonStyle: ButtonStyle {
     var height: CGFloat
     var square: Bool
-    
+
     init(height: CGFloat, square: Bool = false) {
         self.height = height
         self.square = square
     }
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .background(

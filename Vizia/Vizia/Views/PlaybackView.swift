@@ -9,11 +9,12 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PlaybackView: View {
-    @State private var isPlaying: Bool = true
-    @State private var speed: Int = 1
-    private var speedOptions: [String] = ["x0.5", "x1", "x1.5"]
+    @State private var isPlaying = true
+    @State private var speed = 1
     @State private var fontSizes: [CGFloat] = [32, 48, 32]
     @Binding var speech: Speech
+    private let speedOptions = ["x0.5", "x1", "x1.5"]
+    private let speedOptionsVoiceover = ["50% playback speed", "100% playback speed", "150% playback speed"]
 
     init(speech: Binding<Speech>) {
         self._speech = speech
@@ -50,24 +51,12 @@ struct PlaybackView: View {
                                         }
                                     }
                                 }
+                                .accessibility(label: Text(speedOptionsVoiceover[i]))
                         }
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                     .padding(.horizontal, 20)
-                }
-                .accessibilityChildren {
-                    List {
-                        NavigationLink(destination: PlaybackView(speech: $speech)) {
-                            Text("50%")
-                        }
-                        NavigationLink(destination: PlaybackView(speech: $speech)) {
-                            Text("100%")
-                        }
-                        NavigationLink(destination: PlaybackView(speech: $speech)) {
-                            Text("150%")
-                        }
-                    }
-                    .accessibilityLabel(Text("playback speeds; currently 100%"))
+                    .accessibility(addTraits: [.startsMediaSession])
                 }
                 .accessibilitySortPriority(6)
 
@@ -92,6 +81,7 @@ struct PlaybackView: View {
                     .padding(.leading, 30)
                     .padding(.trailing, 15)
                     .accessibilitySortPriority(7)
+                    .accessibility(addTraits: [.startsMediaSession])
 
                     // Repeat button
                     Button {
@@ -109,6 +99,8 @@ struct PlaybackView: View {
                     .padding(.leading, 15)
                     .padding(.trailing, 30)
                     .accessibilitySortPriority(8)
+                    .accessibility(label: Text("repeat"))
+                    .accessibility(addTraits: [.startsMediaSession])
                 }
                 
                 Spacer()

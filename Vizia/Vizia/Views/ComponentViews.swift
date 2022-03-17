@@ -11,7 +11,7 @@ import SwiftUI
 struct PrimaryButton: ButtonStyle {
     @Binding var currentButton: Int
     var totalButtons: Int
-    
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -77,7 +77,7 @@ struct ButtonCarouselView: View {
     @Binding var currentButton: Int
     @Binding var speech: Speech
     var buttons : [Int: String]
-    
+
     init(buttons: [Int: String], currentButton: Binding<Int>, showImagePicker: Binding<Bool>, speech: Binding<Speech>) {
         self._currentButton = currentButton
         self._showImagePicker = showImagePicker
@@ -103,22 +103,17 @@ struct ButtonCarouselView: View {
             .tabViewStyle(PageTabViewStyle())
             .animation(.easeInOut)
             .transition(.slide)
+            // Different layout when voiceover is activated, don't use TabView since it
+            // doesn't work well with voiceover
             .accessibilityChildren {
-                List {
-                    NavigationLink(destination: PlaybackView(speech: $speech)) {
-                        Text("scan text")
-                    }
-                    NavigationLink(destination: PlaybackView(speech: $speech)) {
-                        Text("detect bill")
-                    }
-                    NavigationLink(destination: PlaybackView(speech: $speech)) {
-                        Text("detect colour")
+                ForEach(1..<(self.buttons.count + 1)) { i in
+                    Button(self.buttons[i] ?? "default") {
+                        self.currentButton = i
+                        self.showImagePicker = true
                     }
                 }
             }
             .accessibilitySortPriority(9)
-        } else {
-            Text("oops lol sux 4 u")
         }
     }
 }

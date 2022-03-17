@@ -12,12 +12,12 @@ import SwiftUI
 struct Card <Content : View> : View {
     var content : Content
     var height: Int
-    
+
     init(height: Int, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.height = height
     }
-    
+
     var body: some View {
         ZStack {
             Color("appWhite")
