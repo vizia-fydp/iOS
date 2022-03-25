@@ -36,17 +36,18 @@ struct AppThemeContainer <Content : View> : View {
                         .edgesIgnoringSafeArea(.top)
                         .accessibilityHidden(true)
                     if (home) {
-                        NavigationLink(destination: SettingsView()) {
-                            Image(systemName: "gearshape.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .imageScale(.large)
-                                .frame(width: 40, height: 40)
-                                .position(x: 40, y: 35)
-                        }
-                        .buttonStyle(OnPressButtonStyle())
-                        .accessibilityLabel(Text("settings"))
-                        .accessibilitySortPriority(1)
+                        // TODO: Add functionality to SettingsView
+//                        NavigationLink(destination: SettingsView()) {
+//                            Image(systemName: "gearshape.fill")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .imageScale(.large)
+//                                .frame(width: 40, height: 40)
+//                                .position(x: 40, y: 35)
+//                        }
+//                        .buttonStyle(OnPressButtonStyle())
+//                        .accessibilityLabel(Text("settings"))
+//                        .accessibilitySortPriority(1)
                     } else {
                         Button {
                             presentationMode.wrappedValue.dismiss()

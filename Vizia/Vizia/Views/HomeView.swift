@@ -22,7 +22,7 @@ struct HomeView: View {
     @State private var socketManager : SocketManager?
     @State private var speech = Speech()
 
-    private let serverUrl = "https://2972-2607-fea8-1c83-1400-d477-2084-59b3-7b7b.ngrok.io"
+    private let serverUrl = "https://c529-2607-fea8-1ca4-b000-f925-2fa1-b438-610.ngrok.io"
     private let actionButtons = [
         1: "scan\ntext",
         2: "scan\ndocument",
@@ -173,8 +173,7 @@ struct HomeView: View {
                     if let data = response.data {
                         do {
                             let decoded = try JSONDecoder().decode(MoneyClassificationResponse.self, from: data)
-                            let txt = decoded.predicted_class == "no_bill" ? "No bill detected" : decoded.predicted_class
-                            speech.speak(text: txt, rate: mediumRate, language: "en")
+                            speech.speak(text: decoded.predicted_class, rate: mediumRate, language: "en")
                         } catch {
                             print("Error decoding JSON response for Money Classification")
                         }
