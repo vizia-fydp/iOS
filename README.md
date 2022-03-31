@@ -2,11 +2,11 @@
 
 The Vizia iOS app is responsible for receiving the AI inference results from the server and performing speech synthesis and playback on it. The app is also capable of functioning without the glasses, as an image can also be taken from the iOS device's camera and sent to the server for processing. Playback controls are also made available, allowing the user to play/pause, restart, and speed up/slow down the audio transcription.
 
-# Folders
+## Folders
 * `FYDP Test App`: A small test application used during early development to try out image capture, on-device machine learning inference using Tesseract OCR, speech synthesis, and socket communication. All of these features were transferred to the final app once the UI/UX design was complete.
 * `Vizia`: Code for the final Vizia app.
 
-# Running the App
+## Running the App
 The only way to download and run the app is using [XCode](https://developer.apple.com/xcode/), software that is currently only available on a macOS device. To open the project in XCode:
 ```
 open Vizia/Vizia.xcodeproj
